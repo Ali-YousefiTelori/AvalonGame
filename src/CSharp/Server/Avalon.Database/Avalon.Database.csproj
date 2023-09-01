@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Avalon</RootNamespace>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="EasyMicroservices.Configuration" Version="0.0.0.2" />
+    <PackageReference Include="EasyMicroservices.Cores.Relational.EntityFrameworkCore" Version="0.0.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.10" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\Avalon.Domain\Avalon.Domain.csproj" />
+  </ItemGroup>
+  
+</Project>
