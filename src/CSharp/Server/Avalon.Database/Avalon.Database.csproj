@@ -16,4 +16,9 @@
     <ProjectReference Include="..\Avalon.Domain\Avalon.Domain.csproj" />
   </ItemGroup>
   
+  <ItemGroup>
+    <Folder Include="Database\Documents\" />
+    <Folder Include="Database\Contexts\" />
+  </ItemGroup>
+  
 </Project>
