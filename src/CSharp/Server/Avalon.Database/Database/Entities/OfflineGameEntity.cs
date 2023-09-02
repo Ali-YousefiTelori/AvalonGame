@@ -5,11 +5,14 @@ namespace Avalon.Database.Entities
 {
     public class OfflineGameEntity : OfflineGameSchema
     {
+        public long Id { get; set; }
         public long CreatorUserId { get; set; }
         public long StageId { get; set; }
         public UserEntity CreatorUser { get; set; }
         public StageEntity Stage { get; set; }
 
         public ICollection<OfflineGameProfileRoleEntity> OfflineGameProfileRoles { get; set; }
+        public ICollection<OfflineGameMissionEntity> OfflineGameMissions { get; set; }
     }
+    
 }

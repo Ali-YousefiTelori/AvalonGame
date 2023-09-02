@@ -18,7 +18,6 @@
   
   <ItemGroup>
     <Folder Include="Database\Documents\" />
-    <Folder Include="Database\Contexts\" />
   </ItemGroup>
   
 </Project>
