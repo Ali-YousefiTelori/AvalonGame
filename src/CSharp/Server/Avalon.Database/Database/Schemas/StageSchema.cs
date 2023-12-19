@@ -3,5 +3,6 @@
     public class StageSchema : FullAbilitySchema
     {
         public string Name { get; set; }
+        public byte PlayerCount { get; set; }
     }
 }

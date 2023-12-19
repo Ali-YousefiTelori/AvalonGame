@@ -1,5 +1,6 @@
 
 using Avalon.Database.Contexts;
+using Avalon.Logics;
 using Avalon.Models;
 using EasyMicroservices.Cores.AspEntityFrameworkCoreApi;
 using EasyMicroservices.Cores.AspEntityFrameworkCoreApi.Interfaces;
@@ -17,14 +18,15 @@ namespace Avalon.WebApp
             build.Run();
         }
 
-        static WebApplicationBuilder CreateBuilder(string[] args)
+        public static WebApplicationBuilder CreateBuilder(string[] args)
         {
             var app = StartUpExtensions.Create<AvalonContext>(args);
             app.Services.Builder<AvalonContext>();
             app.Services.AddScoped<IUnitOfWork>((serviceProvider) => new AppUnitOfWork(serviceProvider));
             app.Services.AddTransient(serviceProvider => new AvalonContext(serviceProvider.GetService<IEntityFrameworkCoreDatabaseBuilder>()));
             app.Services.AddScoped<IEntityFrameworkCoreDatabaseBuilder, DatabaseBuilder>();
-
+            app.Services.AddScoped<GameCreatorLogic>();
+            
             StartUpExtensions.AddAuthentication("RootAddresses:Authentication");
             StartUpExtensions.AddWhiteLabel("Avalon", "RootAddresses:WhiteLabel");
             return app;

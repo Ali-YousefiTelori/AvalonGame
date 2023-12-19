@@ -3,14 +3,26 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EasyMicroservices.Tests" Version="0.0.0.9" />
+    <PackageReference Include="EasyMicroservices.WhiteLabelsMicroservice.VirtualServerForTests" Version="0.0.0.7" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
     <PackageReference Include="xunit" Version="2.5.0" />
     <PackageReference Include="xunit.runner.console" Version="2.5.0">
@@ -25,5 +37,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Avalon.WebApp\Avalon.WebApp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="IntegrationTests\" />
   </ItemGroup>
 </Project>
