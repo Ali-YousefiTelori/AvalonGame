@@ -2,7 +2,7 @@
 
 namespace Avalon.Database.Entities
 {
-    public class UserEntity : UserSchema
+    public class UserEntity : UserSchema, IIdSchema<long>
     {
         public long Id { get; set; }
 

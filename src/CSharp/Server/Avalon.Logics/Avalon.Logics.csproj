@@ -8,9 +8,9 @@
   
   <ItemGroup>
     <PackageReference Include="EasyMicroservices.FileManager" Version="0.0.0.3" />
-    <PackageReference Include="EasyMicroservices.Mapper.CompileTimeMapper" Version="0.0.0.5" />
-    <PackageReference Include="EasyMicroservices.Mapper.SerializerMapper" Version="0.0.0.2" />
-    <PackageReference Include="EasyMicroservices.Serialization.Newtonsoft.Json" Version="0.0.0.3" />
+    <PackageReference Include="EasyMicroservices.Mapper.CompileTimeMapper" Version="0.0.0.6" />
+    <PackageReference Include="EasyMicroservices.Mapper.SerializerMapper" Version="0.0.0.3" />
+    <PackageReference Include="EasyMicroservices.Serialization.Newtonsoft.Json" Version="0.0.0.9" />
   </ItemGroup>
   
   <ItemGroup>

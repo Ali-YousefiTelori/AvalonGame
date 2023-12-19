@@ -2,7 +2,7 @@
 
 namespace Avalon.Database.Entities.Relations
 {
-    public class OfflineGameMissionEntity : MissionSchema
+    public class OfflineGameMissionEntity : MissionSchema, IIdSchema<long>
     {
         public long Id { get; set; }
         public long OfflineGameId { get; set; }

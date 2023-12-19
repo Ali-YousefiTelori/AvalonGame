@@ -25,7 +25,7 @@ namespace Avalon.Database.Contexts
 
             modelBuilder.Entity<OfflineGameMissionProfileEntity>(e =>
             {
-                e.HasKey(x => new { x.OfflineGameMissionId, x.ProfileId});
+                e.HasKey(x => new { x.OfflineGameMissionId, x.ProfileId });
             });
         }
     }

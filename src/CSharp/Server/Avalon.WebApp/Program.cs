@@ -1,36 +1,33 @@
 
+using Avalon.Database.Contexts;
+using Avalon.Models;
+using EasyMicroservices.Cores.AspEntityFrameworkCoreApi;
+using EasyMicroservices.Cores.AspEntityFrameworkCoreApi.Interfaces;
+using EasyMicroservices.Cores.Relational.EntityFrameworkCore.Intrerfaces;
+
 namespace Avalon.WebApp
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            var app = CreateBuilder(args);
+            var build = await app.BuildWithUseCors<AvalonContext>(null, true);
+            build.MapControllers();
+            build.Run();
+        }
 
-            // Add services to the container.
+        static WebApplicationBuilder CreateBuilder(string[] args)
+        {
+            var app = StartUpExtensions.Create<AvalonContext>(args);
+            app.Services.Builder<AvalonContext>();
+            app.Services.AddScoped<IUnitOfWork>((serviceProvider) => new AppUnitOfWork(serviceProvider));
+            app.Services.AddTransient(serviceProvider => new AvalonContext(serviceProvider.GetService<IEntityFrameworkCoreDatabaseBuilder>()));
+            app.Services.AddScoped<IEntityFrameworkCoreDatabaseBuilder, DatabaseBuilder>();
 
-            builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
-
-            var app = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
-
-            app.UseHttpsRedirection();
-
-            app.UseAuthorization();
-
-
-            app.MapControllers();
-
-            app.Run();
+            StartUpExtensions.AddAuthentication("RootAddresses:Authentication");
+            StartUpExtensions.AddWhiteLabel("Avalon", "RootAddresses:WhiteLabel");
+            return app;
         }
     }
 }

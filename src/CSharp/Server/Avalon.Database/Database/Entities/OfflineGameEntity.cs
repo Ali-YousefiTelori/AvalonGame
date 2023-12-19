@@ -3,7 +3,7 @@ using Avalon.Database.Schemas;
 
 namespace Avalon.Database.Entities
 {
-    public class OfflineGameEntity : OfflineGameSchema
+    public class OfflineGameEntity : OfflineGameSchema, IIdSchema<long>
     {
         public long Id { get; set; }
         public long CreatorUserId { get; set; }
