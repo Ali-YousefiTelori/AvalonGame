@@ -15,5 +15,7 @@ namespace Avalon.Database.Entities
 
         public ICollection<OfflineGameProfileRoleEntity> OfflineGameProfileRoles { get; set; }
         public ICollection<OfflineGameMissionProfileEntity> OfflineGameMissionProfiles { get; set; }
+        public ICollection<FinishUpGameEntity> FinishUpGames { get; set; }
     }
+    
 }

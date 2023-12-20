@@ -17,7 +17,7 @@ public class GameCreatorLogic
     {
         var stageGameLogic = _unitOfWork.GetLongLogic<StageEntity>();
 
-        var finsStage = await stageGameLogic
+        var findStage = await stageGameLogic
             .GetBy(x => x.PlayerCount == profiles.Count, cancellationToken: cancellationToken)
             .AsCheckedResult();
 
@@ -25,8 +25,37 @@ public class GameCreatorLogic
         return await offlineGameLogic.Add(new OfflineGameEntity()
         {
             CreatorUserId = userId,
-            StageId = finsStage.Id,
-            OfflineGameProfileRoles = await AsignRolesToProfiles(profiles, finsStage.MinionOfMerlinCount, finsStage.MinionOfMordredCount),
+            StageId = findStage.Id,
+            OfflineGameProfileRoles = await AsignRolesToProfiles(profiles, findStage.MinionOfMerlinCount, findStage.MinionOfMordredCount),
+            OfflineGameMissions = new List<OfflineGameMissionEntity>()
+            {
+                new OfflineGameMissionEntity()
+                {
+                     Index = 1,
+                     PlayerCount = findStage.Mission1PlayerCount
+                },
+                new OfflineGameMissionEntity()
+                {
+                     Index = 2,
+                     PlayerCount = findStage.Mission2PlayerCount
+                },
+                new OfflineGameMissionEntity()
+                {
+                     Index = 3,
+                     PlayerCount = findStage.Mission3PlayerCount
+                },
+                new OfflineGameMissionEntity()
+                {
+                     Index = 4,
+                     PlayerCount = findStage.Mission4PlayerCount,
+                     DoNeedsTwoOfFails = findStage.DoNeedsTwoOfFailsAtMission4
+                },
+                new OfflineGameMissionEntity()
+                {
+                     Index = 5,
+                     PlayerCount = findStage.Mission5PlayerCount
+                }
+            }
         }, cancellationToken);
     }
 

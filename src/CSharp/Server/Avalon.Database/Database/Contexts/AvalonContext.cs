@@ -18,7 +18,8 @@ namespace Avalon.Database.Contexts
         public DbSet<OfflineGameProfileRoleEntity> OfflineGameProfileRoles { get; set; }
         public DbSet<OfflineGameMissionProfileEntity> OfflineGameMissionProfiles { get; set; }
         public DbSet<OfflineGameMissionEntity> OfflineGameMissions { get; set; }
-
+        public DbSet<FinishUpGameEntity> FinishUpGames { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.AutoModelCreating(modelBuilder);
@@ -110,7 +111,12 @@ namespace Avalon.Database.Contexts
                     Name = "5 Players",
                     PlayerCount = 5,
                     MinionOfMerlinCount = 3,
-                    MinionOfMordredCount = 2
+                    MinionOfMordredCount = 2,
+                    Mission1PlayerCount = 2,
+                    Mission2PlayerCount = 3,
+                    Mission3PlayerCount = 2,
+                    Mission4PlayerCount = 3,
+                    Mission5PlayerCount = 3,
                 }); 
 
                 x.HasData(new StageEntity()
@@ -119,7 +125,12 @@ namespace Avalon.Database.Contexts
                     Name = "6 Players",
                     PlayerCount = 6,
                     MinionOfMerlinCount = 4,
-                    MinionOfMordredCount = 2
+                    MinionOfMordredCount = 2,
+                    Mission1PlayerCount = 2,
+                    Mission2PlayerCount = 3,
+                    Mission3PlayerCount = 4,
+                    Mission4PlayerCount = 3,
+                    Mission5PlayerCount = 4,
                 });
 
                 x.HasData(new StageEntity()
@@ -128,7 +139,13 @@ namespace Avalon.Database.Contexts
                     Name = "7 Players",
                     PlayerCount = 7,
                     MinionOfMerlinCount = 4,
-                    MinionOfMordredCount = 3
+                    MinionOfMordredCount = 3,
+                    Mission1PlayerCount = 2,
+                    Mission2PlayerCount = 3,
+                    Mission3PlayerCount = 3,
+                    Mission4PlayerCount = 4,
+                    Mission5PlayerCount = 4,
+                    DoNeedsTwoOfFailsAtMission4 = true
                 });
 
                 x.HasData(new StageEntity()
@@ -137,7 +154,13 @@ namespace Avalon.Database.Contexts
                     Name = "8 Players",
                     PlayerCount = 8,
                     MinionOfMerlinCount = 5,
-                    MinionOfMordredCount = 3
+                    MinionOfMordredCount = 3,
+                    Mission1PlayerCount = 3,
+                    Mission2PlayerCount = 4,
+                    Mission3PlayerCount = 4,
+                    Mission4PlayerCount = 5,
+                    Mission5PlayerCount = 5,
+                    DoNeedsTwoOfFailsAtMission4 = true
                 });
 
                 x.HasData(new StageEntity()
@@ -146,7 +169,13 @@ namespace Avalon.Database.Contexts
                     Name = "9 Players",
                     PlayerCount = 9,
                     MinionOfMerlinCount = 6,
-                    MinionOfMordredCount = 3
+                    MinionOfMordredCount = 3,
+                    Mission1PlayerCount = 3,
+                    Mission2PlayerCount = 4,
+                    Mission3PlayerCount = 4,
+                    Mission4PlayerCount = 5,
+                    Mission5PlayerCount = 5,
+                    DoNeedsTwoOfFailsAtMission4 = true
                 });
 
                 x.HasData(new StageEntity()
@@ -155,7 +184,13 @@ namespace Avalon.Database.Contexts
                     Name = "10 Players",
                     PlayerCount = 10,
                     MinionOfMerlinCount = 6,
-                    MinionOfMordredCount = 4
+                    MinionOfMordredCount = 4,
+                    Mission1PlayerCount = 3,
+                    Mission2PlayerCount = 4,
+                    Mission3PlayerCount = 4,
+                    Mission4PlayerCount = 5,
+                    Mission5PlayerCount = 5,
+                    DoNeedsTwoOfFailsAtMission4 = true
                 });
             });
             
