@@ -1,4 +1,3 @@
-
 using Avalon.Database.Contexts;
 using Avalon.Logics;
 using Avalon.Models;
@@ -24,9 +23,10 @@ namespace Avalon.WebApp
             app.Services.Builder<AvalonContext>();
             app.Services.AddScoped<IUnitOfWork>((serviceProvider) => new AppUnitOfWork(serviceProvider));
             app.Services.AddTransient(serviceProvider => new AvalonContext(serviceProvider.GetService<IEntityFrameworkCoreDatabaseBuilder>()));
-            app.Services.AddScoped<IEntityFrameworkCoreDatabaseBuilder, DatabaseBuilder>();
+            app.Services.AddSingleton<IEntityFrameworkCoreDatabaseBuilder, DatabaseBuilder>();
             app.Services.AddScoped<GameCreatorLogic>();
-            
+            app.Services.AddScoped<GameMissionsLogic>();
+
             StartUpExtensions.AddAuthentication("RootAddresses:Authentication");
             StartUpExtensions.AddWhiteLabel("Avalon", "RootAddresses:WhiteLabel");
             return app;

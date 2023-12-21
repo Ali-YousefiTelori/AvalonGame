@@ -8,7 +8,7 @@ namespace Avalon.Tests.Fixtures;
 public class WhiteLabelLaboratoryFixture : IAsyncLifetime
 {
     public const string localhost = "127.0.0.1";
-    protected int Port = 1041;
+    protected int Port = 1042;
     protected static HttpClient HttpClient { get; set; } = new HttpClient();
     public WhiteLabelLaboratoryFixture()
     {

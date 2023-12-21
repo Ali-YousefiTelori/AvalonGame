@@ -1,7 +1,10 @@
 ﻿namespace Avalon.Database.Entities;
 public class FinishUpGameEntity : FullAbilityIdSchema<long>
 {
-    public long GuessMerlinProfileId { get; set; }
+    /// <summary>
+    /// Guess Merlin ProfileId
+    /// </summary>
+    public long ProfileId { get; set; }
     public ProfileEntity Profile { get; set; }
 
     public long OfflineGameId { get; set; }

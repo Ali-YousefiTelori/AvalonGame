@@ -1,4 +1,5 @@
-﻿using Avalon.Database.Entities;
+﻿using Avalon.Constants;
+using Avalon.Database.Entities;
 using Avalon.Database.Entities.Relations;
 using Avalon.Logics;
 using Avalon.Tests.Fixtures;
@@ -64,8 +65,27 @@ public class GameCreatorLogicUnitTests : IClassFixture<UnitTestsFixture>, IClass
         var user = await _unitOfWork.GetLongLogic<UserEntity>()
             .GetById(1, q => q.Include(x => x.Profiles))
             .AsCheckedResult();
+        var roles = await _unitOfWork.GetLongLogic<RoleEntity>()
+            .GetAll()
+            .AsCheckedResult();
         var profileRoles = await _gameCreatorLogic.AsignRolesToProfiles(user.Profiles.Take(playerCount).ToList(), peopleCount, minionOfMordredCount);
+        foreach (var item in profileRoles)
+        {
+            item.Role = roles.FirstOrDefault(x=>x.Id == item.Roled);
+        }
         Assert.True(profileRoles.Count == playerCount);
+        Assert.Contains(profileRoles, x => x.Role.Name == RoleConstants.Merlin);
+        Assert.Contains(profileRoles, x => x.Role.Name == RoleConstants.Percival);
+        Assert.Contains(profileRoles, x => x.Role.Name == RoleConstants.Mordred);
+        if (playerCount == 5 || playerCount == 6)
+        {
+            Assert.Contains(profileRoles, x => x.Role.Name == RoleConstants.Morgana || x.Role.Name == RoleConstants.Assassin);
+        }
+        else
+        {
+            Assert.Contains(profileRoles, x => x.Role.Name == RoleConstants.Morgana);
+            Assert.Contains(profileRoles, x => x.Role.Name == RoleConstants.Assassin);
+        }
         foreach (var item in profileRoles.GroupBy(x => x.Roled))
         {
             Assert.True(item.Count() == 1);

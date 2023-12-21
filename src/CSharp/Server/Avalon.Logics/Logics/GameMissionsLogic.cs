@@ -27,26 +27,42 @@ public class GameMissionsLogic
             gameMission.IsFailed = true;
         else if (!gameMission.DoNeedsTwoOfFails && gameMission.FailCount >= 1)
             gameMission.IsFailed = true;
+        else
+            gameMission.IsFailed = false;
 
         gameMission.FailCount = failedCount;
 
-        return await roleGameLogic.Update(gameMission, cancellationToken);
+        return await roleGameLogic
+             .Update(gameMission, cancellationToken);
     }
 
     public async Task<MessageContract> SentMissionVote(long gameMissionId, long profileId, bool isFail, CancellationToken cancellationToken = default)
     {
-        var gameMissionProfileLogic = _unitOfWork.GetLongLogic<OfflineGameMissionProfileEntity>();
+        var gameMissionLogic = _unitOfWork.GetLongLogic<OfflineGameMissionEntity>();
+        var gameMissionProfileLogic = _unitOfWork.GetLogic<OfflineGameMissionProfileEntity>();
         var gameMissionProfile = await gameMissionProfileLogic
-            .GetBy(x => x.OfflineGameMissionId == gameMissionId && x.ProfileId == profileId, null, cancellationToken);
+            .GetBy(x => x.OfflineGameMissionId == gameMissionId && x.ProfileId == profileId,
+            q => q.Include(x => x.OfflineGameMission), cancellationToken);
         if (gameMissionProfile)
             return true;
 
-        return await gameMissionProfileLogic.Add(new OfflineGameMissionProfileEntity()
+        var mission = await gameMissionLogic
+            .GetById(gameMissionId)
+            .AsCheckedResult();
+
+        await gameMissionProfileLogic.Add(new OfflineGameMissionProfileEntity()
         {
             ProfileId = profileId,
             OfflineGameMissionId = gameMissionId,
             IsFail = isFail
-        }, cancellationToken);
+        }, cancellationToken).AsCheckedResult();
+        var gameId = mission.OfflineGameId;
+        var votedMission = await gameMissionProfileLogic
+            .GetAll(q => q.Where(x => x.OfflineGameMissionId == gameMissionId), cancellationToken)
+            .AsCheckedResult();
+        if (mission.PlayerCount == votedMission.Count)
+            return await CreateMissionResult(gameMissionId, (byte)votedMission.Count(x => x.IsFail.Value), cancellationToken);
+        return true;
     }
 
     public async Task<MessageContract<string>> FinishUp(long gameId, long guessMerlinProfileId, CancellationToken cancellationToken = default)
@@ -62,16 +78,17 @@ public class GameMissionsLogic
                 .ThenInclude(x => x.Role)
             , cancellationToken)
             .AsCheckedResult();
-
         var merlinProfile = game.OfflineGameProfileRoles.FirstOrDefault(x => x.Role.Name == RoleConstants.Merlin);
+
         var gameMissionProfile = await finishUpGameLogic
-            .GetBy(x => x.OfflineGameId == gameId, q => q.Include(x => x.Profile), cancellationToken);
+            .GetBy(x => x.OfflineGameId == gameId, cancellationToken: cancellationToken);
+
         if (gameMissionProfile)
-            return (FailedReasonType.Duplicate, $"You previously guessed Merlin with {gameMissionProfile.Result.Profile.Name}’s profile; Merlin’s profile is {merlinProfile.Profile.Name}.");
+            return (FailedReasonType.Duplicate, $"You previously guessed Merlin with {game.OfflineGameProfileRoles.FirstOrDefault(x => x.ProfileId == gameMissionProfile.Result.ProfileId).Profile.Name}’s profile; Merlin’s profile is {merlinProfile.Profile.Name}.");
 
         await finishUpGameLogic.Add(new FinishUpGameEntity()
         {
-            GuessMerlinProfileId = guessMerlinProfileId,
+            ProfileId = guessMerlinProfileId,
             OfflineGameId = gameId
         }, cancellationToken).AsCheckedResult();
 

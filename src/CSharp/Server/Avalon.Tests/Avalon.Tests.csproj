@@ -38,8 +38,4 @@
   <ItemGroup>
     <ProjectReference Include="..\Avalon.WebApp\Avalon.WebApp.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="IntegrationTests\" />
-  </ItemGroup>
 </Project>

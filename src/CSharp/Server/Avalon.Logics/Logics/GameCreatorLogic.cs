@@ -66,15 +66,13 @@ public class GameCreatorLogic
             .GetAll(cancellationToken)
             .AsCheckedResult();
         var minionOfMerlin = roles.Where(x => !x.IsMinionOfMordred)
-            .OrderBy(x => x.Name == RoleConstants.Merlin)
-            .ThenBy(x => x.Name == RoleConstants.Percival)
+            .OrderByDescending(x => x.Name == RoleConstants.Merlin || x.Name == RoleConstants.Percival)
             .Take(minionOfMerlinCount);
 
-        var minionOfMordred = roles.Where(x => x.IsMinionOfMordred).OrderByDescending(x => x.Name == RoleConstants.Oberon)
-            .OrderBy(x => x.Name == RoleConstants.Mordred)
-            .ThenBy(x => x.Name == RoleConstants.Morgana)
+        var minionOfMordred = roles.Where(x => x.IsMinionOfMordred)
+            .OrderBy(x => x.Name == RoleConstants.Oberon)
+            .OrderByDescending(x => x.Name == RoleConstants.Mordred ? 3 : x.Name == RoleConstants.Morgana ? 2 : x.Name == RoleConstants.Assassin ? 1 : 0)
             .Take(minionOfMordredCount);
-
         //merge and randomize the players
         var merge = minionOfMerlin.Concat(minionOfMordred).OrderBy(x => Guid.NewGuid()).ToList();
         List<OfflineGameProfileRoleEntity> result = new List<OfflineGameProfileRoleEntity>();
