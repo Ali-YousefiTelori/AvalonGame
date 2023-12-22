@@ -20,8 +20,9 @@ namespace Avalon.WebApp
         public static WebApplicationBuilder CreateBuilder(string[] args)
         {
             var app = StartUpExtensions.Create<AvalonContext>(args);
-            app.Services.Builder<AvalonContext>();
+            app.Services.Builder<AvalonContext>().UseDefaultSwaggerOptions();
             app.Services.AddScoped<IUnitOfWork>((serviceProvider) => new AppUnitOfWork(serviceProvider));
+            app.Services.AddScoped((serviceProvider) => new AppUnitOfWork(serviceProvider));
             app.Services.AddTransient(serviceProvider => new AvalonContext(serviceProvider.GetService<IEntityFrameworkCoreDatabaseBuilder>()));
             app.Services.AddSingleton<IEntityFrameworkCoreDatabaseBuilder, DatabaseBuilder>();
             app.Services.AddScoped<GameCreatorLogic>();

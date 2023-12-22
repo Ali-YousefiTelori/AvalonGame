@@ -1,4 +1,5 @@
-﻿using EasyMicroservices.Cores.AspEntityFrameworkCoreApi;
+﻿using Avalon.Logics;
+using EasyMicroservices.Cores.AspEntityFrameworkCoreApi;
 
 namespace Avalon.Models
 {
@@ -6,6 +7,16 @@ namespace Avalon.Models
     {
         public AppUnitOfWork(IServiceProvider service) : base(service)
         {
+        }
+
+        public GameCreatorLogic GetGameCreatorLogic()
+        {
+            return ServiceProvider.GetService<GameCreatorLogic>();
+        }
+
+        public GameMissionsLogic GetGameMissionsLogic()
+        {
+            return ServiceProvider.GetService<GameMissionsLogic>();
         }
     }
 }
