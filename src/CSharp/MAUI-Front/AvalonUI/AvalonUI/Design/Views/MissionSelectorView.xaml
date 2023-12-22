@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AvalonUI.ViewModels;assembly=AvalonUI.ViewModels"
+             x:Class="AvalonUI.Design.Views.MissionSelectorView" FlowDirection="RightToLeft">
+    <ContentView.Resources>
+        <vm:MissionSelectorViewModel x:Key="MissionSelectorViewModel"  />
+        <Style TargetType="Border" x:Key="MissionBorderStyle">
+            <Setter Property="BackgroundColor" Value="#31000000"/>
+            <Setter Property="StrokeThickness" Value="0"/>
+            <Setter Property="StrokeShape" Value="RoundRectangle 100"/>
+            <Setter Property="WidthRequest" Value="80"/>
+            <Setter Property="HeightRequest" Value="80"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style TargetType="Label" x:Key="MissionLabelStyle">
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="FontSize" Value="30"/>
+        </Style>
+        <Color x:Key="FailColor">DarkRed</Color>
+        <Color x:Key="SuccessColor">DarkGreen</Color>
+    </ContentView.Resources>
+    <ContentView.BindingContext>
+        <Binding Source="{StaticResource MissionSelectorViewModel}"/>
+    </ContentView.BindingContext>
+    <Grid IsEnabled="{Binding IsNotBusy}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <FlexLayout Wrap="Wrap" AlignContent="Start" HorizontalOptions="Center">
+            <Border Style="{StaticResource MissionBorderStyle}">
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="1">
+                        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionOneFailed}" Value="true">
+                        <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionOneFailed}" Value="false">
+                        <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
+                    </DataTrigger>
+                </Border.Triggers>
+                <Label Text="1" Style="{StaticResource MissionLabelStyle}"/>
+            </Border>
+            <Border Style="{StaticResource MissionBorderStyle}">
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="2">
+                        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionTwoFailed}" Value="true">
+                        <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionTwoFailed}" Value="false">
+                        <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
+                    </DataTrigger>
+                </Border.Triggers>
+                <Label Text="2" Style="{StaticResource MissionLabelStyle}"/>
+            </Border>
+            <Border Style="{StaticResource MissionBorderStyle}">
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="3">
+                        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionThreeFailed}" Value="true">
+                        <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionThreeFailed}" Value="false">
+                        <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
+                    </DataTrigger>
+                </Border.Triggers>
+                <Label Text="3" Style="{StaticResource MissionLabelStyle}"/>
+            </Border>
+            <Border Style="{StaticResource MissionBorderStyle}">
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="4">
+                        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionFourFailed}" Value="true">
+                        <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionFourFailed}" Value="false">
+                        <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
+                    </DataTrigger>
+                </Border.Triggers>
+                <Label Text="4" Style="{StaticResource MissionLabelStyle}"/>
+            </Border>
+            <Border Style="{StaticResource MissionBorderStyle}">
+                <Border.Triggers>
+                    <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="5">
+                        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionFiveFailed}" Value="true">
+                        <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionFiveFailed}" Value="false">
+                        <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
+                    </DataTrigger>
+                </Border.Triggers>
+                <Label Text="5" Style="{StaticResource MissionLabelStyle}"/>
+            </Border>
+        </FlexLayout>
+
+        <Grid  Grid.Row="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Text="{Binding GameDescription}" FontSize="15"/>
+            <CollectionView ItemsSource="{Binding Profiles}" Grid.Row="1" ItemSizingStrategy="MeasureAllItems">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource CollectionViewTemplateBorder}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ChangeSelectedCommand,Source={StaticResource MissionSelectorViewModel}}" CommandParameter="{Binding}" />
+                            </Border.GestureRecognizers>
+                            <Grid Padding="10,0,10,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <HorizontalStackLayout VerticalOptions="Center">
+                                    <CheckBox IsChecked="{Binding IsSelected}"/>
+                                    <Label Text="{Binding Profile.Name}" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+        <HorizontalStackLayout Grid.Row="2" Spacing="10" Margin="20,0,0,20">
+            <Button Text="رفتن به ماموریت" Command="{Binding GoToMissionCommand}"/>
+            <Button Text="تغییر تاج" Command="{Binding CrownChangeCommand}"/>
+        </HorizontalStackLayout>
+        <ActivityIndicator Grid.RowSpan="3" VerticalOptions="Center" HorizontalOptions="Center" IsRunning="{Binding IsBusy}"/>
+    </Grid>
+</ContentView>

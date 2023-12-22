@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AvalonUI.ViewModels;assembly=AvalonUI.ViewModels"
+             x:Class="AvalonUI.Design.Views.ProfileCardViewer" FlowDirection="RightToLeft">
+    <ContentView.Resources>
+        <vm:ProfileCardViewerViewModel x:Key="ProfileCardViewerViewModel"/>
+    </ContentView.Resources>
+    <ContentView.BindingContext>
+        <Binding Source="{StaticResource ProfileCardViewerViewModel}"/>
+    </ContentView.BindingContext>
+    <Grid>
+        <Grid IsVisible="{Binding IsNotShowRole}">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ShowRoleCommand,Source={StaticResource ProfileCardViewerViewModel}}" />
+            </Grid.GestureRecognizers>
+            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Label FontSize="30"
+                    Text="بازیکن:" TextColor="Gray"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <Label  FontSize="30"
+                    Text="{Binding CurrentProfile.Profile.Name}"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+                <Label FontSize="15" TextColor="DarkRed"
+                    Text="کلیک کنید تا نقش خود را ببینید"
+                    VerticalOptions="Center" 
+                    HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </Grid>
+        <Grid IsVisible="{Binding IsShowRole}">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GoNextProfileCommand,Source={StaticResource ProfileCardViewerViewModel}}" />
+            </Grid.GestureRecognizers>
+            <Image Source="{Binding ProfileRoleImage}">
+                
+            </Image>
+            <Border BackgroundColor="#8FFFFFFF" StrokeThickness="0" StrokeShape="RoundRectangle 5" VerticalOptions="End" HorizontalOptions="Center" Margin="0,0,0,30" Padding="20">
+                <VerticalStackLayout MaximumWidthRequest="300">
+                    <Label Text="نقش شما:"/>
+                    <Label Text="{Binding CurrentProfile.Game.RoleName}"/>
+                    <Label Text="{Binding RoleDescription}"/>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentView>

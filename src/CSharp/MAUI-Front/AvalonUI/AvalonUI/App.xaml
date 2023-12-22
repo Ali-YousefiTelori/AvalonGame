@@ -1,0 +1,32 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:colorStyles="clr-namespace:EasyMicroservices.UI.MauiKits.MaterialUI.Resources.Colors;assembly=EasyMicroservices.UI.MauiKits.MaterialUI"
+             xmlns:controlStyles="clr-namespace:EasyMicroservices.UI.MauiKits.MaterialUI.Resources.Styles;assembly=EasyMicroservices.UI.MauiKits.MaterialUI"
+             xmlns:local="clr-namespace:AvalonUI"
+             xmlns:conv="clr-namespace:AvalonUI.Helpers.Converters"
+             x:Class="AvalonUI.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <colorStyles:BlueColorStyle/>
+                <controlStyles:ButtonStyle/>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <conv:EvenIndexConverter x:Key="EvenIndexConverter"/>
+            <Style TargetType="Border" x:Key="CollectionViewTemplateBorder">
+                <Setter Property="BackgroundColor">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource EvenIndexConverter}">
+                            <Binding />
+                            <Binding Source="{RelativeSource AncestorType={x:Type CollectionView}}" Path="ItemsSource" />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Margin" Value="10,0,10,0"/>
+                <Setter Property="StrokeThickness" Value="0"/>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

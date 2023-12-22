@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AvalonUI.ViewModels;assembly=AvalonUI.ViewModels"
+             x:Class="AvalonUI.Design.Views.DoMissionView">
+    <ContentView.Resources>
+        <vm:DoMissionViewModel x:Key="DoMissionViewModel"/>
+    </ContentView.Resources>
+    <ContentView.BindingContext>
+        <Binding Source="{StaticResource DoMissionViewModel}"/>
+    </ContentView.BindingContext>
+    <Grid>
+        <Grid IsVisible="{Binding IsNotShowVote}">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ShowVoteCommand,Source={StaticResource DoMissionViewModel}}" />
+            </Grid.GestureRecognizers>
+            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Label FontSize="30"
+                Text="بازیکن:" TextColor="Gray"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+                <Label  FontSize="30"
+                Text="{Binding CurrentProfile.Name}"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+                <Label FontSize="15" TextColor="DarkRed"
+                Text="کلیک کنید تا ماموریت خود را انجام دهید"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </Grid>
+        <Grid IsVisible="{Binding IsShowVote}">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding GoNextProfileVoteCommand,Source={StaticResource DoMissionViewModel}}" />
+            </Grid.GestureRecognizers>
+
+            <Grid ColumnSpacing="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ImageButton Aspect="AspectFit" Command="{Binding DoVoteFirstCommand}">
+                    <ImageButton.Triggers>
+                        <DataTrigger TargetType="ImageButton" Binding="{Binding IsFirstFail}" Value="true">
+                            <Setter Property="Source" Value="fail.png"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="ImageButton" Binding="{Binding IsFirstFail}" Value="false">
+                            <Setter Property="Source" Value="success.png"/>
+                        </DataTrigger>
+                    </ImageButton.Triggers>
+                </ImageButton>
+                <ImageButton Aspect="AspectFit" Grid.Column="1" Command="{Binding DoVoteSecondCommand}">
+                    <ImageButton.Triggers>
+                        <DataTrigger TargetType="ImageButton" Binding="{Binding IsFirstFail}" Value="false">
+                            <Setter Property="Source" Value="fail.png"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="ImageButton" Binding="{Binding IsFirstFail}" Value="true">
+                            <Setter Property="Source" Value="success.png"/>
+                        </DataTrigger>
+                    </ImageButton.Triggers>
+                </ImageButton>
+            </Grid>
+            
+            <Border BackgroundColor="#8FFFFFFF" StrokeThickness="0" StrokeShape="RoundRectangle 5" VerticalOptions="Start" HorizontalOptions="Center" Margin="30" Padding="20">
+                <VerticalStackLayout MaximumWidthRequest="300">
+                    <Label Text="انتخاب کنید که می‌خواهید ماموریت با موفقیت انجام شود یا با شکست:"/>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentView>

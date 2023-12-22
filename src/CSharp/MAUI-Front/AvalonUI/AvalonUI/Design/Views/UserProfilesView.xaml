@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AvalonUI.ViewModels;assembly=AvalonUI.ViewModels"
+             x:Class="AvalonUI.Design.Views.UserProfilesView">
+    <ContentView.Resources>
+        <vm:UserProfilesViewModel x:Key="UserProfilesViewModel"/>
+    </ContentView.Resources>
+    <ContentView.BindingContext>
+        <Binding Source="{x:StaticResource UserProfilesViewModel}"/>
+    </ContentView.BindingContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <CollectionView ItemsSource="{Binding Items}" ItemSizingStrategy="MeasureAllItems" Grid.Row="1">
+            <CollectionView.Resources>
+                <DataTemplate x:Key="SelectorView">
+                    <Border Style="{StaticResource CollectionViewTemplateBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ChangeSelectedCommand,Source={StaticResource UserProfilesViewModel}}" CommandParameter="{Binding}" />
+                        </Border.GestureRecognizers>
+                        <Grid Padding="10,0,10,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <HorizontalStackLayout VerticalOptions="Center">
+                                <CheckBox IsChecked="{Binding IsSelected}"/>
+                                <Label Text="{Binding Profile.Name}" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+                <DataTemplate x:Key="NormalView">
+                    <Border Style="{StaticResource CollectionViewTemplateBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding OpenItemMenuCommand,Source={StaticResource UserProfilesViewModel}}" CommandParameter="{Binding}" />
+                        </Border.GestureRecognizers>
+                        <Grid Padding="10,0,10,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <HorizontalStackLayout VerticalOptions="Center">
+                                <Label Text="{Binding Profile.Name}" VerticalOptions="Center"/>
+                            </HorizontalStackLayout>
+                            <ImageButton Grid.Column="1" BackgroundColor="#01FFFFFF" HeightRequest="20" Command="{Binding OpenItemMenuCommand,Source={StaticResource UserProfilesViewModel}}" CommandParameter="{Binding}">
+                                <ImageButton.Source>
+                                    <FontImageSource FontFamily="FontSolid" Glyph="&#xf142;" Color="Black"/>
+                                </ImageButton.Source>
+                            </ImageButton>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.Resources>
+            <CollectionView.Triggers>
+                <DataTrigger TargetType="CollectionView" Binding="{Binding IsProfileSelector,Source={StaticResource UserProfilesViewModel}}" Value="true">
+                    <Setter Property="ItemTemplate" Value="{StaticResource SelectorView}"/>
+                </DataTrigger>
+                <DataTrigger TargetType="CollectionView" Binding="{Binding IsNotProfileSelector,Source={StaticResource UserProfilesViewModel}}" Value="true">
+                    <Setter Property="ItemTemplate" Value="{StaticResource NormalView}"/>
+                </DataTrigger>
+            </CollectionView.Triggers>
+        </CollectionView>
+
+        <Button IsVisible="{Binding IsNotProfileSelector}" Command="{Binding AddNewProfileCommand}" Grid.RowSpan="2" Margin="0,0,15,15" HeightRequest="50" WidthRequest="50" VerticalOptions="End" HorizontalOptions="End" CornerRadius="30" >
+            <Button.ImageSource>
+                <FontImageSource Size="25" FontFamily="FontSolid" Glyph="&#x2b;" />
+            </Button.ImageSource>
+        </Button>
+        <Button IsVisible="{Binding IsProfileSelector}" Command="{Binding ContinueCommand}" Grid.RowSpan="2" Margin="0,0,15,15" HeightRequest="50" WidthRequest="50" VerticalOptions="End" HorizontalOptions="End" CornerRadius="30" >
+            <Button.ImageSource>
+                <FontImageSource Size="25" FontFamily="FontSolid" Glyph="" />
+            </Button.ImageSource>
+        </Button>
+        <ActivityIndicator Grid.RowSpan="2" VerticalOptions="Center" HorizontalOptions="Center" IsRunning="{Binding IsBusy}"/>
+    </Grid>
+</ContentView>
