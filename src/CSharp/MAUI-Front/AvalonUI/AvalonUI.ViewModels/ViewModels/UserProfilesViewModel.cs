@@ -55,7 +55,7 @@ public class UserProfilesViewModel : PushPageBaseViewModel<bool>
         }
     }
 
-    async Task RefreshList()
+    public async Task RefreshList()
     {
         await ExecuteApi<List<ProfileContract>>(async () =>
         {
@@ -78,6 +78,8 @@ public class UserProfilesViewModel : PushPageBaseViewModel<bool>
         var selectedItems = Items.Where(x => x.IsSelected).Select(x => x.Profile).ToList();
         if (selectedItems.Count < 5)
             await DisplayAlert("خطا", "برای ادامه‌ی بازی حداقل باید پنج بازیکن را انتخاب کنید،کنار نام هر شخص یک گزینه‌ی انتخاب وجود دارد که می‌توانید با کلیک روی آن بازیکن را انتخاب کنید، اگر بازیکنی وجود ندارد می‌توانید از صفحه‌ی اصلی وارد بخش مدیریت بازیکنان شوید و بازیکنان را اضافه کنید.", "باشه");
+        else if (selectedItems.Count > 15)
+            await DisplayAlert("خطا", "حداکثر تعداد بازیکنان 15 تاست، شما بیش از 15 بازیکن انتخاب کرده‌اید.", "باشه");
         else
         {
             await ExecuteApi<CreateGameResponseContract>(async () =>

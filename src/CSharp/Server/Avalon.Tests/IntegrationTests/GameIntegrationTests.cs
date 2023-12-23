@@ -28,6 +28,11 @@ public class GameIntegrationTests : IClassFixture<UnitTestsFixture>, IClassFixtu
     [InlineData(8, 5, 3)]
     [InlineData(9, 6, 3)]
     [InlineData(10, 6, 4)]
+    [InlineData(11, 6, 5)]
+    [InlineData(12, 7, 5)]
+    [InlineData(13, 7, 6)]
+    [InlineData(14, 8, 6)]
+    [InlineData(15, 8, 7)]
     public async Task DoGameAsync(byte playerCount, byte peopleCount, byte minionOfMordredCount)
     {
         #region create game

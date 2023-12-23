@@ -26,6 +26,11 @@ public class GameCreatorLogicUnitTests : IClassFixture<UnitTestsFixture>, IClass
     [InlineData(8, 5, 3)]
     [InlineData(9, 6, 3)]
     [InlineData(10, 6, 4)]
+    [InlineData(11, 6, 5)]
+    [InlineData(12, 7, 5)]
+    [InlineData(13, 7, 6)]
+    [InlineData(14, 8, 6)]
+    [InlineData(15, 8, 7)]
     public async Task CreateGameAsync(byte playerCount, byte peopleCount, byte minionOfMordredCount)
     {
         var user = await _unitOfWork.GetLongLogic<UserEntity>()
@@ -60,7 +65,12 @@ public class GameCreatorLogicUnitTests : IClassFixture<UnitTestsFixture>, IClass
     [InlineData(8, 5, 3)]
     [InlineData(9, 6, 3)]
     [InlineData(10, 6, 4)]
-    public async Task AsignRolesToProfilesAsync(byte playerCount, byte peopleCount, byte minionOfMordredCount)
+    [InlineData(11, 6, 5)]
+    [InlineData(12, 7, 5)]
+    [InlineData(13, 7, 6)]
+    [InlineData(14, 8, 6)]
+    [InlineData(15, 8, 7)]
+    public async Task AssignRolesToProfilesAsync(byte playerCount, byte peopleCount, byte minionOfMordredCount)
     {
         var user = await _unitOfWork.GetLongLogic<UserEntity>()
             .GetById(1, q => q.Include(x => x.Profiles))

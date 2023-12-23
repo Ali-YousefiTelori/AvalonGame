@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvalonUI", "AvalonUI\AvalonUI.csproj", "{C78ADB83-BA43-419B-8DC2-90E21655BF10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvalonUI", "AvalonUI\AvalonUI.csproj", "{C78ADB83-BA43-419B-8DC2-90E21655BF10}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application-Layer", "Application-Layer", "{8F3EDE57-806C-4D18-80AA-8C4E119BE8EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BusinessLogic-Layer", "BusinessLogic-Layer", "{B11E629D-A186-49CA-A1E1-30E588165F7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvalonUI.ViewModels", "AvalonUI.ViewModels\AvalonUI.ViewModels.csproj", "{62E4DA02-D565-4C36-BDEF-BC5D9080B014}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AvalonUI.ViewModels", "AvalonUI.ViewModels\AvalonUI.ViewModels.csproj", "{62E4DA02-D565-4C36-BDEF-BC5D9080B014}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test-Layer", "Test-Layer", "{26F8A359-23BB-439A-8C7B-F69DF1248CB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvalonUI.Tests", "AvalonUI.Tests\AvalonUI.Tests.csproj", "{57771D01-D8EE-46CC-A434-6744DAF5160E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,10 @@ Global
 		{62E4DA02-D565-4C36-BDEF-BC5D9080B014}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62E4DA02-D565-4C36-BDEF-BC5D9080B014}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62E4DA02-D565-4C36-BDEF-BC5D9080B014}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57771D01-D8EE-46CC-A434-6744DAF5160E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57771D01-D8EE-46CC-A434-6744DAF5160E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57771D01-D8EE-46CC-A434-6744DAF5160E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57771D01-D8EE-46CC-A434-6744DAF5160E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -34,6 +42,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C78ADB83-BA43-419B-8DC2-90E21655BF10} = {8F3EDE57-806C-4D18-80AA-8C4E119BE8EF}
 		{62E4DA02-D565-4C36-BDEF-BC5D9080B014} = {B11E629D-A186-49CA-A1E1-30E588165F7A}
+		{57771D01-D8EE-46CC-A434-6744DAF5160E} = {26F8A359-23BB-439A-8C7B-F69DF1248CB2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA48BFC6-D452-47EB-A0C0-F4F9BD703109}
