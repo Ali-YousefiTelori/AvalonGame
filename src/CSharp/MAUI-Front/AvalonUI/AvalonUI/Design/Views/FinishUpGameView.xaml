@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AvalonUI.ViewModels;assembly=AvalonUI.ViewModels"
+             x:Class="AvalonUI.Design.Views.FinishUpGameView">
+    <ContentView.Resources>
+        <vm:FinishUpGameViewModel x:Key="FinishUpGameViewModel"/>
+    </ContentView.Resources>
+    <ContentView.BindingContext>
+        <Binding Source="{StaticResource FinishUpGameViewModel}"/>
+    </ContentView.BindingContext>
+    <Grid Margin="20">
+        <Grid IsVisible="{Binding IsNotShowGameResult}" RowSpacing="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Text="بازی تمام شد، مافیاها می‌توانند پروفایل مرلین را از شهروندان انتخاب کنند:" FontSize="15"/>
+            <CollectionView ItemsSource="{Binding Profiles}" Grid.Row="1" ItemSizingStrategy="MeasureAllItems">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="30" Style="{StaticResource CollectionViewTemplateBorder}">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SelectMerlinCommand,Source={StaticResource FinishUpGameViewModel}}" CommandParameter="{Binding}" />
+                            </Border.GestureRecognizers>
+                            <Grid Padding="10,0,10,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto"/>
+                                </Grid.ColumnDefinitions>
+                                <HorizontalStackLayout VerticalOptions="Center">
+                                    <Label Text="{Binding FullName}" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+        <Grid IsVisible="{Binding IsShowGameResult}">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ResetGameCommand,Source={StaticResource FinishUpGameViewModel}}" />
+            </Grid.GestureRecognizers>
+            <Image>
+                <Image.Triggers>
+                    <DataTrigger TargetType="Image" Binding="{Binding IsMerlinWins}" Value="true">
+                        <Setter Property="Source" Value="peoplewin.png"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Image" Binding="{Binding IsMerlinWins}" Value="false">
+                        <Setter Property="Source" Value="evilwin.png"/>
+                    </DataTrigger>
+                </Image.Triggers>
+            </Image>
+            <Border BackgroundColor="#8FFFFFFF" StrokeThickness="0" StrokeShape="RoundRectangle 5" VerticalOptions="End" HorizontalOptions="Center" Margin="0,0,0,30" Padding="20">
+                <VerticalStackLayout MaximumWidthRequest="300">
+                    <Label Text="{Binding GameDescription}"/>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentView>

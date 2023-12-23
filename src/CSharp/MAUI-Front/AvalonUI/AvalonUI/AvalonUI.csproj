@@ -95,6 +95,9 @@
 	  <MauiXaml Update="Design\Views\DoMissionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Design\Views\FinishUpGameView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Design\Views\MissionSelectorView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

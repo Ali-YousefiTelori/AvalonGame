@@ -1,17 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<p:EasyContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:AvalonUI.Design.Views"
              xmlns:vm="clr-namespace:AvalonUI.ViewModels;assembly=AvalonUI.ViewModels"
+             xmlns:p="clr-namespace:EasyMicroservices.UI.MauiComponents.Design.Pages;assembly=EasyMicroservices.UI.MauiComponents"
              x:Class="AvalonUI.MainPage">
-    <ContentPage.Resources>
+    <p:EasyContentPage.Resources>
         <vm:MainPageViewModel x:Key="MainPageViewModel"/>
-    </ContentPage.Resources>
-    <ContentPage.BindingContext>
+    </p:EasyContentPage.Resources>
+    <p:EasyContentPage.BindingContext>
         <Binding Source="{StaticResource MainPageViewModel}"/>
-    </ContentPage.BindingContext>
+    </p:EasyContentPage.BindingContext>
     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
         <Button Text="مدیریت بازیکنان" Command="{Binding ProfilesPageCommand}"/>
         <Button Text="شروع بازی" Command="{Binding StartCommand}"/>
     </VerticalStackLayout>
-</ContentPage>
+</p:EasyContentPage>

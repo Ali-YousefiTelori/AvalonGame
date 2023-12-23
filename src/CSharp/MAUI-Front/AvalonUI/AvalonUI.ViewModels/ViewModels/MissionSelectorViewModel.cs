@@ -12,24 +12,35 @@ public class MissionSelectorViewModel : PushPageBaseViewModel<(CreateGameRespons
         CrownChangeCommand = new RelayCommand(CrownChange);
         GoToMissionCommand = new TaskRelayCommand(this, GoToMission);
         ChangeSelectedCommand = new RelayCommand<CheckedProfileContract>(ChangeSelected);
-        CloseMissionResultCommand = new RelayCommand(() => IsShowMissionResult = false);
+        CloseMissionResultCommand = new TaskRelayCommand(CloseMissionResult);
         ShowGameResultCommand = new RelayCommand<string>(ShowGameResult);
     }
+
+    async Task CloseMissionResult()
+    {
+        IsShowMissionResult = false;
+        if (GameMissionsResults.Count(x => x.GameMission.IsFailed.Value) > 2 || GameMissionsResults.Count(x => !x.GameMission.IsFailed.Value) > 2)
+            await NavigationManagerBase.Current.PushDataAsync((Game, Profiles.Select(x => x.Profile).ToList(), GameMissionsResults), PagesConstants.FinishUpGameViewPage);
+    }
+
     public RelayCommand CrownChangeCommand { get; set; }
-    public RelayCommand CloseMissionResultCommand { get; set; }
+    public TaskRelayCommand CloseMissionResultCommand { get; set; }
     public RelayCommand<string> ShowGameResultCommand { get; set; }
 
     public RelayCommand<CheckedProfileContract> ChangeSelectedCommand { get; set; }
     public TaskRelayCommand GoToMissionCommand { get; set; }
     public CreateGameResponseContract Game { get; set; }
     public List<CheckedProfileContract> Profiles { get; set; }
-    public List<ProfileContract> SelectedProfiles { get; set; } = new List<ProfileContract>();
+    public List<ProfileContract> SelectedCrownProfiles { get; set; } = new List<ProfileContract>();
     public List<OfflineGameMissionContract> GameMissions { get; set; }
     public List<GameMissionResult> GameMissionsResults { get; set; } = new List<GameMissionResult>();
     public override void OnDataInitialized((CreateGameResponseContract Game, List<ProfileContract> Profiles) data)
     {
         Game = data.Game;
-        Profiles = data.Profiles.Select(x => new CheckedProfileContract(x)).ToList();
+        Profiles = data.Profiles
+                .OrderBy(x => Guid.NewGuid())
+                .Select(x => new CheckedProfileContract(x))
+                .ToList();
         OnPropertyChanged(nameof(Profiles));
         _ = FetchMissions();
     }
@@ -61,7 +72,6 @@ public class MissionSelectorViewModel : PushPageBaseViewModel<(CreateGameRespons
             OnPropertyChanged(nameof(GameDescription));
         }
     }
-
 
     int NumberOfFailsNeed { get; set; }
     string SelectorProfileName { get; set; }
@@ -108,6 +118,7 @@ public class MissionSelectorViewModel : PushPageBaseViewModel<(CreateGameRespons
 
     public void SetMission(int missionNumber)
     {
+        CrownChangedCount = 0;
         CurrentMissionNumber = missionNumber;
         var currentMission = GetCurrentMission(missionNumber);
         if (currentMission != null)
@@ -121,11 +132,6 @@ public class MissionSelectorViewModel : PushPageBaseViewModel<(CreateGameRespons
     void RefreshDescription()
     {
         GameDescription = $"شما در ماموریت {CurrentMissionNumber} هستید، برای اینکه این ماموریت با شکست مواجه شود، رای {NumberOfFailsNeed} مافیا کافیست. شهروندان تلاش کنند در رای‌گیری مافیا با خود به ماموریت نبرند، بعد از اتمام انتخاب‌های خود روی گزینه‌ی ماموریت کلیک کنید و وارد ماموریت شوید، تاج دست {SelectorProfileName} هست و او انتخاب می‌کند که چه کسانی به ماموریت بروند، تا به الان {CrownChangedCount} تاج از دست داده‌اید، اگر تعداد تاج‌های از دست رفته به عدد 6 برسد، شهروندان بازی را می‌بازند. برای انجام این ماموریت {PlayersCount} شخص کافی می‌باشد";
-    }
-
-    void Reset()
-    {
-        SelectedProfiles.Clear();
     }
 
     async Task FetchMissions()
@@ -155,8 +161,15 @@ public class MissionSelectorViewModel : PushPageBaseViewModel<(CreateGameRespons
 
     private void CrownChange()
     {
-        var profile = Profiles.FirstOrDefault(x => !SelectedProfiles.Contains(x.Profile));
-        SelectedProfiles.Add(profile?.Profile);
+        var selectProfile = () => Profiles
+                .FirstOrDefault(x => !SelectedCrownProfiles.Contains(x.Profile));
+        var profile = selectProfile();
+        if (profile == null)
+        {
+            SelectedCrownProfiles.Clear();
+            profile = selectProfile();
+        }
+        SelectedCrownProfiles.Add(profile?.Profile);
         SelectorProfileName = profile?.Profile?.Name;
         CrownChangedCount++;
         RefreshDescription();
@@ -187,6 +200,7 @@ public class MissionSelectorViewModel : PushPageBaseViewModel<(CreateGameRespons
                     IsMissionFourFailed = isMissionFailed;
                 else if (CurrentMissionNumber == 5)
                     IsMissionFiveFailed = isMissionFailed;
+
                 OnPropertyChanged(nameof(IsMissionOneFailed));
                 OnPropertyChanged(nameof(IsMissionTwoFailed));
                 OnPropertyChanged(nameof(IsMissionThreeFailed));
@@ -218,7 +232,7 @@ public class MissionSelectorViewModel : PushPageBaseViewModel<(CreateGameRespons
         CurrentGameMissionResult = gameMissionResult;
         await ExecuteApi(async () =>
         {
-            return await ClientManager.GameClient.CreateMissionResultAsync(new CreateGaneMissionRequestContract()
+            return await ClientManager.GameClient.CreateMissionResultAsync(new CreateGameMissionRequestContract()
             {
                 GameMissionId = currentMission.Id,
                 FailCount = failCount,
@@ -226,7 +240,8 @@ public class MissionSelectorViewModel : PushPageBaseViewModel<(CreateGameRespons
         }, () =>
         {
             IsShowMissionResult = true;
-            SetMission(CurrentMissionNumber + 1);
+            if (CurrentMissionNumber < 5)
+                SetMission(CurrentMissionNumber + 1);
             return Task.CompletedTask;
         }, async ex =>
         {
@@ -238,6 +253,8 @@ public class MissionSelectorViewModel : PushPageBaseViewModel<(CreateGameRespons
     private void ShowGameResult(string number)
     {
         var currentMission = GetCurrentMission(int.Parse(number));
+        if (!currentMission.IsFailed.HasValue)
+            return;
         CurrentGameMissionResult = GameMissionsResults.FirstOrDefault(x => x.GameMission.Id == currentMission.Id);
         IsShowMissionResult = true;
     }

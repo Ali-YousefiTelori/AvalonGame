@@ -113,17 +113,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateGaneMissionRequestContract"
+                "$ref": "#/components/schemas/CreateGameMissionRequestContract"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateGaneMissionRequestContract"
+                "$ref": "#/components/schemas/CreateGameMissionRequestContract"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateGaneMissionRequestContract"
+                "$ref": "#/components/schemas/CreateGameMissionRequestContract"
               }
             }
           }
@@ -145,6 +145,55 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/MessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Game/FinishUpGame": {
+      "post": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "FinishUpGame",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinishGameRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinishGameRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FinishGameRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringMessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringMessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringMessageContract"
                 }
               }
             }
@@ -871,6 +920,20 @@
   },
   "components": {
     "schemas": {
+      "CreateGameMissionRequestContract": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "gameMissionId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "failCount": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "CreateGameRequestContract": {
         "type": "object",
         "additionalProperties": false,
@@ -920,20 +983,6 @@
           },
           "result": {
             "$ref": "#/components/schemas/CreateGameResponseContract"
-          }
-        }
-      },
-      "CreateGaneMissionRequestContract": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "gameMissionId": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "failCount": {
-            "type": "integer",
-            "format": "int32"
           }
         }
       },
@@ -1106,6 +1155,20 @@
           "languageShortName": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "FinishGameRequestContract": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "gameId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "guessMerlinProfileId": {
+            "type": "integer",
+            "format": "int64"
           }
         }
       },
@@ -1520,6 +1583,26 @@
           "index": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      },
+      "StringMessageContract": {
+        "title": "MessageContract<String>",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorContract"
+          },
+          "success": {
+            "$ref": "#/components/schemas/SuccessContract"
+          },
+          "result": {
+            "type": "string",
+            "nullable": true
           }
         }
       },

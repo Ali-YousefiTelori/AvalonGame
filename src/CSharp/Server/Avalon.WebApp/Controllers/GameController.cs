@@ -64,9 +64,16 @@ public class GameController : ControllerBase
     }
 
     [HttpPost]
-    public Task<MessageContract> CreateMissionResult(CreateGaneMissionRequestContract createGaneMissionRequest, CancellationToken cancellationToken)
+    public Task<MessageContract> CreateMissionResult(CreateGameMissionRequestContract createGameMissionRequest, CancellationToken cancellationToken)
     {
         var missionLogic = _appUnitOfWork.GetGameMissionsLogic();
-        return missionLogic.CreateMissionResult(createGaneMissionRequest.GameMissionId, createGaneMissionRequest.FailCount, cancellationToken);
+        return missionLogic.CreateMissionResult(createGameMissionRequest.GameMissionId, createGameMissionRequest.FailCount, cancellationToken);
+    }
+
+    [HttpPost]
+    public Task<MessageContract<string>> FinishUpGame(FinishGameRequestContract finishGameRequest, CancellationToken cancellationToken)
+    {
+        var missionLogic = _appUnitOfWork.GetGameMissionsLogic();
+        return missionLogic.FinishUp(finishGameRequest.GameId, finishGameRequest.GuessMerlinProfileId, cancellationToken);
     }
 }
