@@ -24,118 +24,155 @@
     <ContentView.BindingContext>
         <Binding Source="{StaticResource MissionSelectorViewModel}"/>
     </ContentView.BindingContext>
-    <Grid IsEnabled="{Binding IsNotBusy}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <FlexLayout Wrap="Wrap" AlignContent="Start" HorizontalOptions="Center">
-            <Border Style="{StaticResource MissionBorderStyle}">
-                <Border.Triggers>
-                    <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="1">
-                        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionOneFailed}" Value="true">
-                        <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionOneFailed}" Value="false">
-                        <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
-                    </DataTrigger>
-                </Border.Triggers>
-                <Label Text="1" Style="{StaticResource MissionLabelStyle}"/>
-            </Border>
-            <Border Style="{StaticResource MissionBorderStyle}">
-                <Border.Triggers>
-                    <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="2">
-                        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionTwoFailed}" Value="true">
-                        <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionTwoFailed}" Value="false">
-                        <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
-                    </DataTrigger>
-                </Border.Triggers>
-                <Label Text="2" Style="{StaticResource MissionLabelStyle}"/>
-            </Border>
-            <Border Style="{StaticResource MissionBorderStyle}">
-                <Border.Triggers>
-                    <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="3">
-                        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionThreeFailed}" Value="true">
-                        <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionThreeFailed}" Value="false">
-                        <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
-                    </DataTrigger>
-                </Border.Triggers>
-                <Label Text="3" Style="{StaticResource MissionLabelStyle}"/>
-            </Border>
-            <Border Style="{StaticResource MissionBorderStyle}">
-                <Border.Triggers>
-                    <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="4">
-                        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionFourFailed}" Value="true">
-                        <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionFourFailed}" Value="false">
-                        <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
-                    </DataTrigger>
-                </Border.Triggers>
-                <Label Text="4" Style="{StaticResource MissionLabelStyle}"/>
-            </Border>
-            <Border Style="{StaticResource MissionBorderStyle}">
-                <Border.Triggers>
-                    <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="5">
-                        <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionFiveFailed}" Value="true">
-                        <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
-                    </DataTrigger>
-                    <DataTrigger TargetType="Border" Binding="{Binding IsMissionFiveFailed}" Value="false">
-                        <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
-                    </DataTrigger>
-                </Border.Triggers>
-                <Label Text="5" Style="{StaticResource MissionLabelStyle}"/>
-            </Border>
-        </FlexLayout>
-
-        <Grid  Grid.Row="1" Margin="20">
+    <Grid>
+        <Grid IsEnabled="{Binding IsNotBusy}" IsVisible="{Binding IsNotShowMissionResult}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Label Text="{Binding GameDescription}" FontSize="15"/>
-            <CollectionView ItemsSource="{Binding Profiles}" Grid.Row="1" ItemSizingStrategy="MeasureAllItems">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Border Style="{StaticResource CollectionViewTemplateBorder}">
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ChangeSelectedCommand,Source={StaticResource MissionSelectorViewModel}}" CommandParameter="{Binding}" />
-                            </Border.GestureRecognizers>
-                            <Grid Padding="10,0,10,0">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="auto"/>
-                                </Grid.ColumnDefinitions>
-                                <HorizontalStackLayout VerticalOptions="Center">
-                                    <CheckBox IsChecked="{Binding IsSelected}"/>
-                                    <Label Text="{Binding Profile.Name}" VerticalOptions="Center"/>
-                                </HorizontalStackLayout>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </Grid>
+            <FlexLayout Wrap="Wrap" AlignContent="Start" HorizontalOptions="Center">
+                <Border Style="{StaticResource MissionBorderStyle}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowGameResultCommand,Source={StaticResource MissionSelectorViewModel}}" CommandParameter="1" />
+                    </Border.GestureRecognizers>
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="1">
+                            <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsMissionOneFailed}" Value="true">
+                            <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsMissionOneFailed}" Value="false">
+                            <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Label Text="1" Style="{StaticResource MissionLabelStyle}"/>
+                </Border>
+                <Border Style="{StaticResource MissionBorderStyle}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowGameResultCommand,Source={StaticResource MissionSelectorViewModel}}" CommandParameter="2" />
+                    </Border.GestureRecognizers>
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="2">
+                            <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsMissionTwoFailed}" Value="true">
+                            <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsMissionTwoFailed}" Value="false">
+                            <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Label Text="2" Style="{StaticResource MissionLabelStyle}"/>
+                </Border>
+                <Border Style="{StaticResource MissionBorderStyle}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowGameResultCommand,Source={StaticResource MissionSelectorViewModel}}" CommandParameter="3" />
+                    </Border.GestureRecognizers>
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="3">
+                            <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsMissionThreeFailed}" Value="true">
+                            <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsMissionThreeFailed}" Value="false">
+                            <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Label Text="3" Style="{StaticResource MissionLabelStyle}"/>
+                </Border>
+                <Border Style="{StaticResource MissionBorderStyle}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowGameResultCommand,Source={StaticResource MissionSelectorViewModel}}" CommandParameter="4" />
+                    </Border.GestureRecognizers>
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="4">
+                            <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsMissionFourFailed}" Value="true">
+                            <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsMissionFourFailed}" Value="false">
+                            <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Label Text="4" Style="{StaticResource MissionLabelStyle}"/>
+                </Border>
+                <Border Style="{StaticResource MissionBorderStyle}">
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ShowGameResultCommand,Source={StaticResource MissionSelectorViewModel}}" CommandParameter="5" />
+                    </Border.GestureRecognizers>
+                    <Border.Triggers>
+                        <DataTrigger TargetType="Border" Binding="{Binding CurrentMissionNumber}" Value="5">
+                            <Setter Property="BackgroundColor" Value="{DynamicResource PrimaryColor}"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsMissionFiveFailed}" Value="true">
+                            <Setter Property="BackgroundColor" Value="{StaticResource FailColor}"/>
+                        </DataTrigger>
+                        <DataTrigger TargetType="Border" Binding="{Binding IsMissionFiveFailed}" Value="false">
+                            <Setter Property="BackgroundColor" Value="{StaticResource SuccessColor}"/>
+                        </DataTrigger>
+                    </Border.Triggers>
+                    <Label Text="5" Style="{StaticResource MissionLabelStyle}"/>
+                </Border>
+            </FlexLayout>
 
-        <HorizontalStackLayout Grid.Row="2" Spacing="10" Margin="20,0,0,20">
-            <Button Text="رفتن به ماموریت" Command="{Binding GoToMissionCommand}"/>
-            <Button Text="تغییر تاج" Command="{Binding CrownChangeCommand}"/>
-        </HorizontalStackLayout>
-        <ActivityIndicator Grid.RowSpan="3" VerticalOptions="Center" HorizontalOptions="Center" IsRunning="{Binding IsBusy}"/>
+            <Grid  Grid.Row="1" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Text="{Binding GameDescription}" FontSize="15"/>
+                <CollectionView ItemsSource="{Binding Profiles}" Grid.Row="1" ItemSizingStrategy="MeasureAllItems">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource CollectionViewTemplateBorder}">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ChangeSelectedCommand,Source={StaticResource MissionSelectorViewModel}}" CommandParameter="{Binding}" />
+                                </Border.GestureRecognizers>
+                                <Grid Padding="10,0,10,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <HorizontalStackLayout VerticalOptions="Center">
+                                        <CheckBox IsChecked="{Binding IsSelected}"/>
+                                        <Label Text="{Binding Profile.Name}" VerticalOptions="Center"/>
+                                    </HorizontalStackLayout>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+
+            <HorizontalStackLayout Grid.Row="2" Spacing="10" Margin="20,0,0,20">
+                <Button Text="رفتن به ماموریت" Command="{Binding GoToMissionCommand}"/>
+                <Button Text="تغییر تاج" Command="{Binding CrownChangeCommand}"/>
+            </HorizontalStackLayout>
+            <ActivityIndicator Grid.RowSpan="3" VerticalOptions="Center" HorizontalOptions="Center" IsRunning="{Binding IsBusy}"/>
+        </Grid>
+        <Grid IsVisible="{Binding IsShowMissionResult}">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CloseMissionResultCommand,Source={StaticResource MissionSelectorViewModel}}" />
+            </Grid.GestureRecognizers>
+            <Image>
+                <Image.Triggers>
+                    <DataTrigger TargetType="Image" Binding="{Binding CurrentGameMissionResult.GameMission.IsFailed}" Value="true">
+                        <Setter Property="Source" Value="evilwin.png"/>
+                    </DataTrigger>
+                    <DataTrigger TargetType="Image" Binding="{Binding CurrentGameMissionResult.GameMission.IsFailed}" Value="false">
+                        <Setter Property="Source" Value="peoplewin.png"/>
+                    </DataTrigger>
+                </Image.Triggers>
+            </Image>
+            <Border BackgroundColor="#8FFFFFFF" StrokeThickness="0" StrokeShape="RoundRectangle 5" VerticalOptions="End" HorizontalOptions="Center" Margin="0,0,0,30" Padding="20">
+                <VerticalStackLayout MaximumWidthRequest="300">
+                    <Label Text="{Binding CurrentGameMissionResult.Description}"/>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
     </Grid>
 </ContentView>

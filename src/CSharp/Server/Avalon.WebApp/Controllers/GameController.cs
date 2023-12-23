@@ -62,4 +62,11 @@ public class GameController : ControllerBase
         return await gameLogic
             .GetAll(q => q.Where(x => x.OfflineGameId == getByIdRequest.Id), cancellationToken: cancellationToken);
     }
+
+    [HttpPost]
+    public Task<MessageContract> CreateMissionResult(CreateGaneMissionRequestContract createGaneMissionRequest, CancellationToken cancellationToken)
+    {
+        var missionLogic = _appUnitOfWork.GetGameMissionsLogic();
+        return missionLogic.CreateMissionResult(createGaneMissionRequest.GameMissionId, createGaneMissionRequest.FailCount, cancellationToken);
+    }
 }

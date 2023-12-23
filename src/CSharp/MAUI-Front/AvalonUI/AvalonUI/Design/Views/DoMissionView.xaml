@@ -60,7 +60,7 @@
                     </ImageButton.Triggers>
                 </ImageButton>
             </Grid>
-            
+
             <Border BackgroundColor="#8FFFFFFF" StrokeThickness="0" StrokeShape="RoundRectangle 5" VerticalOptions="Start" HorizontalOptions="Center" Margin="30" Padding="20">
                 <VerticalStackLayout MaximumWidthRequest="300">
                     <Label Text="انتخاب کنید که می‌خواهید ماموریت با موفقیت انجام شود یا با شکست:"/>

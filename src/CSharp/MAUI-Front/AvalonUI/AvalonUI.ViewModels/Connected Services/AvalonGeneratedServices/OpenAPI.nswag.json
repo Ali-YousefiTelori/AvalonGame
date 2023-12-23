@@ -103,6 +103,55 @@
         }
       }
     },
+    "/api/Game/CreateMissionResult": {
+      "post": {
+        "tags": [
+          "Game"
+        ],
+        "operationId": "CreateMissionResult",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGaneMissionRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGaneMissionRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateGaneMissionRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Profile/Add": {
       "post": {
         "tags": [
@@ -871,6 +920,20 @@
           },
           "result": {
             "$ref": "#/components/schemas/CreateGameResponseContract"
+          }
+        }
+      },
+      "CreateGaneMissionRequestContract": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "gameMissionId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "failCount": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },

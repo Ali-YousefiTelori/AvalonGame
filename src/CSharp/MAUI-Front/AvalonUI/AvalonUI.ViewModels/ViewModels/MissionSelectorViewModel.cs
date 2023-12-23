@@ -12,15 +12,20 @@ public class MissionSelectorViewModel : PushPageBaseViewModel<(CreateGameRespons
         CrownChangeCommand = new RelayCommand(CrownChange);
         GoToMissionCommand = new TaskRelayCommand(this, GoToMission);
         ChangeSelectedCommand = new RelayCommand<CheckedProfileContract>(ChangeSelected);
+        CloseMissionResultCommand = new RelayCommand(() => IsShowMissionResult = false);
+        ShowGameResultCommand = new RelayCommand<string>(ShowGameResult);
     }
-
     public RelayCommand CrownChangeCommand { get; set; }
+    public RelayCommand CloseMissionResultCommand { get; set; }
+    public RelayCommand<string> ShowGameResultCommand { get; set; }
+
     public RelayCommand<CheckedProfileContract> ChangeSelectedCommand { get; set; }
     public TaskRelayCommand GoToMissionCommand { get; set; }
     public CreateGameResponseContract Game { get; set; }
     public List<CheckedProfileContract> Profiles { get; set; }
     public List<ProfileContract> SelectedProfiles { get; set; } = new List<ProfileContract>();
     public List<OfflineGameMissionContract> GameMissions { get; set; }
+    public List<GameMissionResult> GameMissionsResults { get; set; } = new List<GameMissionResult>();
     public override void OnDataInitialized((CreateGameResponseContract Game, List<ProfileContract> Profiles) data)
     {
         Game = data.Game;
@@ -57,14 +62,54 @@ public class MissionSelectorViewModel : PushPageBaseViewModel<(CreateGameRespons
         }
     }
 
+
     int NumberOfFailsNeed { get; set; }
     string SelectorProfileName { get; set; }
     int CrownChangedCount { get; set; }
     int PlayersCount { get; set; }
+
+    bool _IsShowMissionResult;
+    public bool IsShowMissionResult
+    {
+        get => _IsShowMissionResult;
+        set
+        {
+            _IsShowMissionResult = value;
+            OnPropertyChanged(nameof(IsShowMissionResult));
+            OnPropertyChanged(nameof(IsNotShowMissionResult));
+        }
+    }
+
+    public bool IsNotShowMissionResult
+    {
+        get
+        {
+            return !IsShowMissionResult;
+        }
+    }
+
+
+    GameMissionResult _CurrentGameMissionResult;
+    public GameMissionResult CurrentGameMissionResult
+    {
+        get => _CurrentGameMissionResult;
+        set
+        {
+            _CurrentGameMissionResult = value;
+            OnPropertyChanged(nameof(CurrentGameMissionResult));
+        }
+    }
+
+    OfflineGameMissionContract GetCurrentMission(int missionNumber)
+    {
+        var currentMission = GameMissions.FirstOrDefault(x => x.Index == missionNumber);
+        return currentMission;
+    }
+
     public void SetMission(int missionNumber)
     {
         CurrentMissionNumber = missionNumber;
-        var currentMission = GameMissions.FirstOrDefault(x => x.Index == missionNumber);
+        var currentMission = GetCurrentMission(missionNumber);
         if (currentMission != null)
         {
             NumberOfFailsNeed = currentMission.DoNeedsTwoOfFails ? 2 : 1;
@@ -87,7 +132,7 @@ public class MissionSelectorViewModel : PushPageBaseViewModel<(CreateGameRespons
     {
         await ExecuteApi<List<OfflineGameMissionContract>>(async () =>
         {
-            return await ClientManager.GameClient.GetGameMissionsAsync(new  Int64GetByIdRequestContract()
+            return await ClientManager.GameClient.GetGameMissionsAsync(new Int64GetByIdRequestContract()
             {
                 Id = Game.GameId
             });
@@ -122,7 +167,7 @@ public class MissionSelectorViewModel : PushPageBaseViewModel<(CreateGameRespons
         var selectedProfiles = Profiles.Where(x => x.IsSelected).ToList();
         if (selectedProfiles.Count != PlayersCount)
         {
-            await DisplayAlert("انتخاب اشخاص",$"تعداد افرادی که باید به ماموریت بروند {PlayersCount} نفر می‌باشند، اما شما {selectedProfiles.Count} نفر را انتخاب کرده‌اید، لطفا از لیست اشخاص کسانی که می‌خواهید به ماموریت بروند را به تعدادی که لازم است انتخاب کنید.","باشه");
+            await DisplayAlert("انتخاب اشخاص", $"تعداد افرادی که باید به ماموریت بروند {PlayersCount} نفر می‌باشند، اما شما {selectedProfiles.Count} نفر را انتخاب کرده‌اید، لطفا از لیست اشخاص کسانی که می‌خواهید به ماموریت بروند را به تعدادی که لازم است انتخاب کنید.", "باشه");
             return;
         }
 
@@ -147,8 +192,59 @@ public class MissionSelectorViewModel : PushPageBaseViewModel<(CreateGameRespons
                 OnPropertyChanged(nameof(IsMissionThreeFailed));
                 OnPropertyChanged(nameof(IsMissionFourFailed));
                 OnPropertyChanged(nameof(IsMissionFiveFailed));
-                SetMission(CurrentMissionNumber + 1);
+
+                await SetMissionResult(result.Values.Count(x => !x), isMissionFailed, result.Select(x => x.Key.Name).ToArray());
             }
         }
     }
+
+    async Task SetMissionResult(int failCount, bool isMissionFailed, string[] profiles)
+    {
+        var currentMission = GetCurrentMission(CurrentMissionNumber);
+        currentMission.IsFailed = isMissionFailed;
+        currentMission.FailCount = failCount;
+        string result = "";
+        if (isMissionFailed)
+            result = $"شکست مواجه شد. تعداد کسانی که ماموریت را با شکست مواجه کردند {failCount} نفر بودند، ";
+        else
+            result = "موفقیت انجام شد.";
+        string description = $"ماموریت با {result} کسانی که در ماموریت بودند {string.Join(" و ", profiles)} بودند.";
+        var gameMissionResult = new GameMissionResult()
+        {
+            GameMission = currentMission,
+            Description = description
+        };
+        GameMissionsResults.Add(gameMissionResult);
+        CurrentGameMissionResult = gameMissionResult;
+        await ExecuteApi(async () =>
+        {
+            return await ClientManager.GameClient.CreateMissionResultAsync(new CreateGaneMissionRequestContract()
+            {
+                GameMissionId = currentMission.Id,
+                FailCount = failCount,
+            });
+        }, () =>
+        {
+            IsShowMissionResult = true;
+            SetMission(CurrentMissionNumber + 1);
+            return Task.CompletedTask;
+        }, async ex =>
+        {
+            await DisplayAlert("خطا", $"خطا در دریافت اطلاعات رخ داده است، بدون دریافت اطلاعات نمی‌توانیم به بازی ادامه دهیم، باشه را بزنید تا مجدد تلاش کنیم. جزئیات : {ex.Message}", "باشه");
+            await SetMissionResult(failCount, isMissionFailed, profiles);
+        });
+    }
+
+    private void ShowGameResult(string number)
+    {
+        var currentMission = GetCurrentMission(int.Parse(number));
+        CurrentGameMissionResult = GameMissionsResults.FirstOrDefault(x => x.GameMission.Id == currentMission.Id);
+        IsShowMissionResult = true;
+    }
+}
+
+public class GameMissionResult
+{
+    public OfflineGameMissionContract GameMission { get; set; }
+    public string Description { get; set; }
 }
