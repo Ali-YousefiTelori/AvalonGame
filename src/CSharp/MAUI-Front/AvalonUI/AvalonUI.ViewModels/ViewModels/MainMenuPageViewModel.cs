@@ -5,9 +5,9 @@ using EasyMicroservices.UI.Cores.Commands;
 using EasyMicroservices.UI.Cores.Navigations;
 
 namespace AvalonUI.ViewModels;
-public class MainPageViewModel : BaseViewModel
+public class MainMenuPageViewModel : BaseViewModel
 {
-    public MainPageViewModel()
+    public MainMenuPageViewModel()
     {
         ProfilesPageCommand = new TaskRelayCommand(ProfilesPage);
         StartCommand = new TaskRelayCommand(Start);

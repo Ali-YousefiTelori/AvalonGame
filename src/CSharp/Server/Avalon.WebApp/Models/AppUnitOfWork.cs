@@ -14,6 +14,13 @@ namespace Avalon.Models
             return ServiceProvider.GetService<GameCreatorLogic>();
         }
 
+        public CurrentUser GetCurrentUser()
+        {
+            var context = ServiceProvider.GetService<IHttpContextAccessor>()?.HttpContext;
+            //context.User.Claims
+            return null;
+        }
+
         public GameMissionsLogic GetGameMissionsLogic()
         {
             return ServiceProvider.GetService<GameMissionsLogic>();

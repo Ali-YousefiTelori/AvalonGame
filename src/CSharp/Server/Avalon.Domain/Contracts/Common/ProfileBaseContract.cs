@@ -2,7 +2,7 @@
 
 namespace Avalon.Contracts.Common;
 
-public class ProfileBaseContract : FullAbilitySchema
+public class ProfileBaseContract
 {
     public string Name { get; set; }
 }

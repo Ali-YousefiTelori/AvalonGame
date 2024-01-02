@@ -10,12 +10,8 @@ namespace Avalon.Database.Entities
     {
         public long Id { get; set; }
 
-        public long UserId { get; set; }
-        public UserEntity User { get; set; }
-
         public ICollection<OfflineGameProfileRoleEntity> OfflineGameProfileRoles { get; set; }
         public ICollection<OfflineGameMissionProfileEntity> OfflineGameMissionProfiles { get; set; }
         public ICollection<FinishUpGameEntity> FinishUpGames { get; set; }
     }
-    
 }

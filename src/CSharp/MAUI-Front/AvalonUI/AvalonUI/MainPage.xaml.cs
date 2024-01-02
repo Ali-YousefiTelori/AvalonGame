@@ -19,6 +19,7 @@ public partial class MainPage : EasyContentPage
         RegisterViewAsPage<DoMissionView>(PagesConstants.DoMissionViewPage);
         RegisterViewAsPage<FinishUpGameView>(PagesConstants.FinishUpGameViewPage);
         NavigationManagerBase.Current.RegisterPage<MainPage>(PagesConstants.MainPage);
+        NavigationManagerBase.Current.RegisterPage<Design.Pages.MainMenuPage>(PagesConstants.MainMenuPage);
     }
 
     void RegisterViewAsPage<TView>(string name)

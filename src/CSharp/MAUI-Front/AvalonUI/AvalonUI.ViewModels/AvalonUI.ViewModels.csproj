@@ -7,8 +7,9 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="EasyMicroservices.Cores.Clients" Version="0.0.0.69" />
-    <PackageReference Include="EasyMicroservices.UI.Cores.Mvvm" Version="0.0.0.13" />
+    <PackageReference Include="EasyMicroservices.Cores.Clients" Version="0.0.0.93" />
+    <PackageReference Include="EasyMicroservices.UI.Cores.Mvvm" Version="0.0.0.18" />
+    <PackageReference Include="EasyMicroservices.UI.Identity.ViewModels" Version="0.0.0.8" />
     <PackageReference Include="EasyMicroservices.Utilities" Version="0.0.0.13" />
   </ItemGroup>
   

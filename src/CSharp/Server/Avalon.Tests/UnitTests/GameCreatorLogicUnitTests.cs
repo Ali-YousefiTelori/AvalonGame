@@ -7,6 +7,7 @@ using EasyMicroservices.Cores.AspEntityFrameworkCoreApi.Interfaces;
 using EasyMicroservices.ServiceContracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using EasyMicroservices.Cores.Contracts.Requests;
 
 namespace Avalon.Tests.UnitTests;
 public class GameCreatorLogicUnitTests : IClassFixture<UnitTestsFixture>, IClassFixture<WhiteLabelLaboratoryFixture>
@@ -33,10 +34,13 @@ public class GameCreatorLogicUnitTests : IClassFixture<UnitTestsFixture>, IClass
     [InlineData(15, 8, 7)]
     public async Task CreateGameAsync(byte playerCount, byte peopleCount, byte minionOfMordredCount)
     {
-        var user = await _unitOfWork.GetLongLogic<UserEntity>()
-            .GetById(1, q => q.Include(x => x.Profiles))
+        var myProfiles = await _unitOfWork.GetLongLogic<ProfileEntity>()
+        .GetAllByUniqueIdentity(new GetByUniqueIdentityRequestContract()
+        {
+            UniqueIdentity = "1-2"
+        }, EasyMicroservices.Cores.DataTypes.GetUniqueIdentityType.All)
             .AsCheckedResult();
-        var gameId = await _gameCreatorLogic.CreateNew(user.Id, user.Profiles.Take(playerCount).ToList());
+        var gameId = await _gameCreatorLogic.CreateNew("1-2", myProfiles.Take(playerCount).ToList());
         Assert.True(gameId > 0);
 
         var game = await _unitOfWork.GetLongLogic<OfflineGameEntity>()
@@ -72,13 +76,16 @@ public class GameCreatorLogicUnitTests : IClassFixture<UnitTestsFixture>, IClass
     [InlineData(15, 8, 7)]
     public async Task AssignRolesToProfilesAsync(byte playerCount, byte peopleCount, byte minionOfMordredCount)
     {
-        var user = await _unitOfWork.GetLongLogic<UserEntity>()
-            .GetById(1, q => q.Include(x => x.Profiles))
+        var myProfiles = await _unitOfWork.GetLongLogic<ProfileEntity>()
+        .GetAllByUniqueIdentity(new GetByUniqueIdentityRequestContract()
+        {
+            UniqueIdentity = "1-2"
+        }, EasyMicroservices.Cores.DataTypes.GetUniqueIdentityType.All)
             .AsCheckedResult();
         var roles = await _unitOfWork.GetLongLogic<RoleEntity>()
             .GetAll()
             .AsCheckedResult();
-        var profileRoles = await _gameCreatorLogic.AsignRolesToProfiles(user.Profiles.Take(playerCount).ToList(), peopleCount, minionOfMordredCount);
+        var profileRoles = await _gameCreatorLogic.AsignRolesToProfiles(myProfiles.Take(playerCount).ToList(), peopleCount, minionOfMordredCount);
         foreach (var item in profileRoles)
         {
             item.Role = roles.FirstOrDefault(x=>x.Id == item.Roled);

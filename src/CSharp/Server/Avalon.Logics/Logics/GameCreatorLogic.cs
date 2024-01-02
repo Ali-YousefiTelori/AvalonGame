@@ -13,7 +13,7 @@ public class GameCreatorLogic
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<long> CreateNew(long userId, ICollection<ProfileEntity> profiles, CancellationToken cancellationToken = default)
+    public async Task<long> CreateNew(string uniqueIdentity, ICollection<ProfileEntity> profiles, CancellationToken cancellationToken = default)
     {
         var stageGameLogic = _unitOfWork.GetLongLogic<StageEntity>();
 
@@ -24,7 +24,7 @@ public class GameCreatorLogic
         var offlineGameLogic = _unitOfWork.GetLongLogic<OfflineGameEntity>();
         return await offlineGameLogic.Add(new OfflineGameEntity()
         {
-            CreatorUserId = userId,
+            UniqueIdentity = uniqueIdentity,
             StageId = findStage.Id,
             OfflineGameProfileRoles = await AsignRolesToProfiles(profiles, findStage.MinionOfMerlinCount, findStage.MinionOfMordredCount),
             OfflineGameMissions = new List<OfflineGameMissionEntity>()

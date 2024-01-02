@@ -4,6 +4,7 @@ using Avalon.Contracts.Responses;
 using Avalon.Database.Entities;
 using Avalon.Database.Entities.Relations;
 using Avalon.Models;
+using Avalon.WebApp.Attributes;
 using EasyMicroservices.Cores.Contracts.Requests;
 using EasyMicroservices.ServiceContracts;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace Avalon.WebApp.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
+[AvalonSecurity]
 public class GameController : ControllerBase
 {
     readonly AppUnitOfWork _appUnitOfWork;
@@ -24,8 +26,16 @@ public class GameController : ControllerBase
     [HttpPost]
     public async Task<MessageContract<CreateGameResponseContract>> CreateGame(CreateGameRequestContract createGameRequest, CancellationToken cancellationToken)
     {
+        var currentUser = _appUnitOfWork.GetCurrentUser();
         var logic = _appUnitOfWork.GetGameCreatorLogic();
         var profileLogic = _appUnitOfWork.GetLongLogic<ProfileEntity>();
+        var userProfiles = await profileLogic.GetAllByUniqueIdentity(new GetByUniqueIdentityRequestContract()
+        {
+            UniqueIdentity = currentUser.UniqueIdentity
+        }, EasyMicroservices.Cores.DataTypes.GetUniqueIdentityType.All, cancellationToken: cancellationToken)
+            .AsCheckedResult();
+        if (createGameRequest.Profiles.Any(x => !userProfiles.Any(y => x == y.Id)))
+            return (FailedReasonType.NotFound, "Some profileId not found in database!");
         var gameProfileRoleLogic = _appUnitOfWork.GetLongLogic<OfflineGameProfileRoleEntity>();
 
         var profiles = await profileLogic
@@ -35,7 +45,7 @@ public class GameController : ControllerBase
         if (profiles.Count < 5)
             return (FailedReasonType.ValidationsError, "Maximum profile count: 5");
 
-        var gameId = await logic.CreateNew(1, profiles, cancellationToken);
+        var gameId = await logic.CreateNew(currentUser.UniqueIdentity, profiles, cancellationToken);
 
         List<OfflineGameProfileRoleEntity> result = new List<OfflineGameProfileRoleEntity>();
         var gameProfiles = await gameProfileRoleLogic.GetAll(q => q.Where(x => x.OfflineGameId == gameId)

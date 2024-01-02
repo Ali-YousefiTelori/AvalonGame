@@ -1,4 +1,7 @@
-﻿using EasyMicroservices.UI.Cores.Navigations;
+﻿using AvalonUI.Helpers;
+using AvalonUI.ViewModels;
+using EasyMicroservices.UI.Cores.Navigations;
+using EasyMicroservices.UI.Identity.ViewModels.Authentications;
 using EasyMicroservices.UI.MauiComponents.Navigations;
 using Microsoft.Extensions.Logging;
 
@@ -19,6 +22,8 @@ public static class MauiProgram
                 fonts.AddFont("fa-regular-400.ttf", "FontBrands");
                 fonts.AddFont("fa-solid-900.ttf", "FontSolid");
             });
+        builder.Services.AddSingleton(sp => ClientManager.AuthenticationClient);
+        builder.Services.AddTransient<LoginViewModel, AvalonLoginViewModel>();
 #if DEBUG
         builder.Logging.AddDebug();
 #endif

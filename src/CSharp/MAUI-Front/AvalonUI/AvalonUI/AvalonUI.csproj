@@ -23,7 +23,7 @@
 		<ApplicationTitle>AvalonUI</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.avalonui</ApplicationId>
+		<ApplicationId>ir.framesoft.avalongame</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -35,6 +35,10 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -68,7 +72,7 @@
 	  <None Remove="Resources\Images\peoplewin.png" />
 	  <None Remove="Resources\Images\Percival.png" />
 	  <None Remove="Resources\Images\result.png" />
-	  <None Remove="Resources\Images\success.png" />
+	  <None Remove="Resources\Images\success.png" />ll
 	</ItemGroup>
 
 	<ItemGroup>
@@ -79,19 +83,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Design\Pages\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\AvalonUI.ViewModels\AvalonUI.ViewModels.csproj" />
 	</ItemGroup>
   
   <ItemGroup>
     <PackageReference Include="EasyMicroservices.UI.MauiKits.MaterialUI" Version="0.0.0.2" />
-    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.3" />
   </ItemGroup>
   
 	<ItemGroup>
+	  <MauiXaml Update="Design\Pages\MainMenuPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Design\Views\DoMissionView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
@@ -107,6 +109,12 @@
 	  <MauiXaml Update="Design\Views\UserProfilesView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+  
+	<ItemGroup>
+	  <PackageReference Include="EasyMicroservices.UI.Identity.Maui">
+	    <Version>0.0.0.8</Version>
+	  </PackageReference>
 	</ItemGroup>
 
 </Project>

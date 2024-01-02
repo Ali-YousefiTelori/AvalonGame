@@ -4,6 +4,7 @@ using Avalon.Database.Entities.Relations;
 using Avalon.Logics;
 using Avalon.Tests.Fixtures;
 using EasyMicroservices.Cores.AspEntityFrameworkCoreApi.Interfaces;
+using EasyMicroservices.Cores.Contracts.Requests;
 using EasyMicroservices.ServiceContracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,10 +37,13 @@ public class GameIntegrationTests : IClassFixture<UnitTestsFixture>, IClassFixtu
     public async Task DoGameAsync(byte playerCount, byte peopleCount, byte minionOfMordredCount)
     {
         #region create game
-        var user = await _unitOfWork.GetLongLogic<UserEntity>()
-        .GetById(1, q => q.Include(x => x.Profiles))
+        var myProfiles = await _unitOfWork.GetLongLogic<ProfileEntity>()
+        .GetAllByUniqueIdentity(new GetByUniqueIdentityRequestContract()
+        {
+            UniqueIdentity = "1-2"
+        }, EasyMicroservices.Cores.DataTypes.GetUniqueIdentityType.All)
             .AsCheckedResult();
-        var gameId = await _gameCreatorLogic.CreateNew(user.Id, user.Profiles.Take(playerCount).ToList());
+        var gameId = await _gameCreatorLogic.CreateNew("1-2", myProfiles.Take(playerCount).ToList());
         Assert.True(gameId > 0);
 
         var game = await _unitOfWork.GetLongLogic<OfflineGameEntity>()

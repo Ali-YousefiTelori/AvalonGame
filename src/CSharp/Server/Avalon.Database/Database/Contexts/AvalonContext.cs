@@ -10,7 +10,6 @@ namespace Avalon.Database.Contexts
     {
         public AvalonContext(IEntityFrameworkCoreDatabaseBuilder builder) : base(builder) { }
 
-        public DbSet<UserEntity> Users { get; set; }
         public DbSet<StageEntity> Stages { get; set; }
         public DbSet<RoleEntity> Roles { get; set; }
         public DbSet<ProfileEntity> Profiles { get; set; }
@@ -29,110 +28,6 @@ namespace Avalon.Database.Contexts
                 e.HasKey(x => new { x.OfflineGameMissionId, x.ProfileId });
             });
 
-            modelBuilder.Entity<UserEntity>(x =>
-            {
-                x.HasData(new UserEntity()
-                {
-                    Id = 1,
-                    Key = Guid.NewGuid(),
-                    UserName = "HelloAvalon"
-                });
-            });
-
-            //modelBuilder.Entity<ProfileEntity>(x =>
-            //{
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 1,
-            //        Name = "Ali",
-            //        UserId = 1
-            //    });
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 2,
-            //        Name = "Yaghob",
-            //        UserId = 1
-            //    });
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 3,
-            //        Name = "Ebrahim",
-            //        UserId = 1
-            //    });
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 4,
-            //        Name = "Noah",
-            //        UserId = 1
-            //    });
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 5,
-            //        Name = "Mosa",
-            //        UserId = 1
-            //    });
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 6,
-            //        Name = "Younos",
-            //        UserId = 1
-            //    });
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 7,
-            //        Name = "Yousof",
-            //        UserId = 1
-            //    });
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 8,
-            //        Name = "Mohammad",
-            //        UserId = 1
-            //    });
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 9,
-            //        Name = "Sam",
-            //        UserId = 1
-            //    });
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 10,
-            //        Name = "David",
-            //        UserId = 1
-            //    });
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 11,
-            //        Name = "Hamid",
-            //        UserId = 1
-            //    });
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 12,
-            //        Name = "Mahmud",
-            //        UserId = 1
-            //    });
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 13,
-            //        Name = "Mahdi",
-            //        UserId = 1
-            //    });
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 14,
-            //        Name = "Hadi",
-            //        UserId = 1
-            //    });
-            //    x.HasData(new ProfileEntity()
-            //    {
-            //        Id = 15,
-            //        Name = "Hamed",
-            //        UserId = 1
-            //    });
-            //});
-
             modelBuilder.Entity<StageEntity>(x =>
             {
                 x.HasData(new StageEntity()
@@ -147,9 +42,8 @@ namespace Avalon.Database.Contexts
                     Mission3PlayerCount = 2,
                     Mission4PlayerCount = 3,
                     Mission5PlayerCount = 3,
-                }); 
-
-                x.HasData(new StageEntity()
+                },
+                new StageEntity()
                 {
                     Id = 2,
                     Name = "6 Players",
@@ -161,9 +55,7 @@ namespace Avalon.Database.Contexts
                     Mission3PlayerCount = 4,
                     Mission4PlayerCount = 3,
                     Mission5PlayerCount = 4,
-                });
-
-                x.HasData(new StageEntity()
+                } , new StageEntity()
                 {
                     Id = 3,
                     Name = "7 Players",
@@ -176,9 +68,8 @@ namespace Avalon.Database.Contexts
                     Mission4PlayerCount = 4,
                     Mission5PlayerCount = 4,
                     DoNeedsTwoOfFailsAtMission4 = true
-                });
-
-                x.HasData(new StageEntity()
+                },
+                new StageEntity()
                 {
                     Id = 4,
                     Name = "8 Players",
@@ -191,9 +82,8 @@ namespace Avalon.Database.Contexts
                     Mission4PlayerCount = 5,
                     Mission5PlayerCount = 5,
                     DoNeedsTwoOfFailsAtMission4 = true
-                });
-
-                x.HasData(new StageEntity()
+                },
+                new StageEntity()
                 {
                     Id = 5,
                     Name = "9 Players",
@@ -206,9 +96,8 @@ namespace Avalon.Database.Contexts
                     Mission4PlayerCount = 5,
                     Mission5PlayerCount = 5,
                     DoNeedsTwoOfFailsAtMission4 = true
-                });
-
-                x.HasData(new StageEntity()
+                },
+                new StageEntity()
                 {
                     Id = 6,
                     Name = "10 Players",
@@ -221,9 +110,8 @@ namespace Avalon.Database.Contexts
                     Mission4PlayerCount = 5,
                     Mission5PlayerCount = 5,
                     DoNeedsTwoOfFailsAtMission4 = true
-                });
-
-                x.HasData(new StageEntity()
+                },
+                new StageEntity()
                 {
                     Id = 7,
                     Name = "11 Players",
@@ -236,9 +124,8 @@ namespace Avalon.Database.Contexts
                     Mission4PlayerCount = 5,
                     Mission5PlayerCount = 6,
                     DoNeedsTwoOfFailsAtMission4 = true
-                });
-
-                x.HasData(new StageEntity()
+                },
+                new StageEntity()
                 {
                     Id = 8,
                     Name = "12 Players",
@@ -251,9 +138,8 @@ namespace Avalon.Database.Contexts
                     Mission4PlayerCount = 5,
                     Mission5PlayerCount = 6,
                     DoNeedsTwoOfFailsAtMission4 = true
-                });
-
-                x.HasData(new StageEntity()
+                },
+                new StageEntity()
                 {
                     Id = 9,
                     Name = "13 Players",
@@ -266,9 +152,8 @@ namespace Avalon.Database.Contexts
                     Mission4PlayerCount = 5,
                     Mission5PlayerCount = 7,
                     DoNeedsTwoOfFailsAtMission4 = true
-                });
-
-                x.HasData(new StageEntity()
+                },
+                new StageEntity()
                 {
                     Id = 10,
                     Name = "14 Players",
@@ -281,9 +166,8 @@ namespace Avalon.Database.Contexts
                     Mission4PlayerCount = 5,
                     Mission5PlayerCount = 7,
                     DoNeedsTwoOfFailsAtMission4 = true
-                });
-
-                x.HasData(new StageEntity()
+                },
+                new StageEntity()
                 {
                     Id = 11,
                     Name = "15 Players",
@@ -296,7 +180,7 @@ namespace Avalon.Database.Contexts
                     Mission4PlayerCount = 5,
                     Mission5PlayerCount = 8,
                     DoNeedsTwoOfFailsAtMission4 = true
-                });
+                }); 
             });
             
             modelBuilder.Entity<RoleEntity>(x =>
@@ -306,116 +190,116 @@ namespace Avalon.Database.Contexts
                     Id = 1,
                     Name = "Merlin",
                     IsMinionOfMordred = false
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 2,
                     Name = "Percival",
                     IsMinionOfMordred = false
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 3,
                     Name = "Mordred",
                     IsMinionOfMordred = true
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 4,
                     Name = "Assassin",
                     IsMinionOfMordred = true
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 5,
                     Name = "Morgana",
                     IsMinionOfMordred = true
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 6,
                     Name = "Oberon",
                     IsMinionOfMordred = true
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 7,
                     Name = "Evil",
                     IsMinionOfMordred = true
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 8,
                     Name = "Evil",
                     IsMinionOfMordred = true
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 9,
                     Name = "Evil",
                     IsMinionOfMordred = true
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 10,
                     Name = "Evil",
                     IsMinionOfMordred = true
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 11,
                     Name = "Evil",
                     IsMinionOfMordred = true
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 12,
                     Name = "Evil",
                     IsMinionOfMordred = true
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 13,
                     Name = "People",
                     IsMinionOfMordred = false
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 14,
                     Name = "People",
                     IsMinionOfMordred = false
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 15,
                     Name = "People",
                     IsMinionOfMordred = false
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 16,
                     Name = "People",
                     IsMinionOfMordred = false
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 17,
                     Name = "People",
                     IsMinionOfMordred = false
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 18,
                     Name = "People",
                     IsMinionOfMordred = false
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 19,
                     Name = "People",
                     IsMinionOfMordred = false
-                });
-                x.HasData(new RoleEntity()
+                },
+                new RoleEntity()
                 {
                     Id = 20,
                     Name = "People",
