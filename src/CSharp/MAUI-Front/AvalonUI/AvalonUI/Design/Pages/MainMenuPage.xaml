@@ -15,5 +15,8 @@
     <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
         <Button Text="مدیریت بازیکنان" Command="{Binding ProfilesPageCommand}"/>
         <Button Text="شروع بازی" Command="{Binding StartCommand}"/>
+        <!--<Button Text="ارائه‌ی پیشنهاد و انتقاد" Command="{Binding StartCommand}"/>
+        <Button Text="خروج از کاربری" Command="{Binding StartCommand}"/>
+        <Button Text="خروج از بازی" Command="{Binding StartCommand}"/>-->
     </VerticalStackLayout>
 </p:EasyContentPage>

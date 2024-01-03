@@ -59,62 +59,62 @@
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <None Remove="Resources\Images\assassin.png" />
-	  <None Remove="Resources\Images\evil.png" />
-	  <None Remove="Resources\Images\evilwin.png" />
-	  <None Remove="Resources\Images\fail.png" />
-	  <None Remove="Resources\Images\Merlin.png" />
-	  <None Remove="Resources\Images\Mordred.png" />
-	  <None Remove="Resources\Images\Morgana.png" />
-	  <None Remove="Resources\Images\Oberon.png" />
-	  <None Remove="Resources\Images\people.png" />
-	  <None Remove="Resources\Images\peoplewin.png" />
-	  <None Remove="Resources\Images\Percival.png" />
-	  <None Remove="Resources\Images\result.png" />
-	  <None Remove="Resources\Images\success.png" />ll
-	</ItemGroup>
+  <ItemGroup>
+    <None Remove="Resources\Images\assassin.png" />
+    <None Remove="Resources\Images\evil.png" />
+    <None Remove="Resources\Images\evilwin.png" />
+    <None Remove="Resources\Images\fail.png" />
+    <None Remove="Resources\Images\Merlin.png" />
+    <None Remove="Resources\Images\Mordred.png" />
+    <None Remove="Resources\Images\Morgana.png" />
+    <None Remove="Resources\Images\Oberon.png" />
+    <None Remove="Resources\Images\people.png" />
+    <None Remove="Resources\Images\peoplewin.png" />
+    <None Remove="Resources\Images\Percival.png" />
+    <None Remove="Resources\Images\result.png" />
+    <None Remove="Resources\Images\success.png" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="EasyMicroservices.UI.MauiComponents" Version="0.0.0.13" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EasyMicroservices.UI.MauiComponents" Version="0.0.0.13" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+  </ItemGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\AvalonUI.ViewModels\AvalonUI.ViewModels.csproj" />
-	</ItemGroup>
-  
+  <ItemGroup>
+    <ProjectReference Include="..\AvalonUI.ViewModels\AvalonUI.ViewModels.csproj" />
+  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="EasyMicroservices.UI.MauiKits.MaterialUI" Version="0.0.0.2" />
   </ItemGroup>
-  
-	<ItemGroup>
-	  <MauiXaml Update="Design\Pages\MainMenuPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Design\Views\DoMissionView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Design\Views\FinishUpGameView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Design\Views\MissionSelectorView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Design\Views\ProfileCardViewer.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	  <MauiXaml Update="Design\Views\UserProfilesView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	</ItemGroup>
-  
-	<ItemGroup>
-	  <PackageReference Include="EasyMicroservices.UI.Identity.Maui">
-	    <Version>0.0.0.8</Version>
-	  </PackageReference>
-	</ItemGroup>
 
+  <ItemGroup>
+    <MauiXaml Update="Design\Pages\MainMenuPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Design\Views\DoMissionView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Design\Views\FinishUpGameView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Design\Views\MissionSelectorView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Design\Views\ProfileCardViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Design\Views\UserProfilesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EasyMicroservices.UI.Identity.Maui">
+      <Version>0.0.0.11</Version>
+    </PackageReference>
+  </ItemGroup>
+  
 </Project>

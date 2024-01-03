@@ -1,5 +1,7 @@
 ﻿using Avalon.Logics;
 using EasyMicroservices.Cores.AspEntityFrameworkCoreApi;
+using EasyMicroservices.Cores.Interfaces;
+using System.Security.Claims;
 
 namespace Avalon.Models
 {
@@ -17,8 +19,10 @@ namespace Avalon.Models
         public CurrentUser GetCurrentUser()
         {
             var context = ServiceProvider.GetService<IHttpContextAccessor>()?.HttpContext;
-            //context.User.Claims
-            return null;
+            return new CurrentUser()
+            {
+                 UniqueIdentity = context.User.FindFirstValue(nameof(IUniqueIdentitySchema.UniqueIdentity)),
+            };
         }
 
         public GameMissionsLogic GetGameMissionsLogic()

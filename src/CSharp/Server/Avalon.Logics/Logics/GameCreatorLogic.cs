@@ -2,6 +2,7 @@
 using Avalon.Database.Entities;
 using Avalon.Database.Entities.Relations;
 using EasyMicroservices.Cores.AspEntityFrameworkCoreApi.Interfaces;
+using EasyMicroservices.Cores.DataTypes;
 using EasyMicroservices.ServiceContracts;
 
 namespace Avalon.Logics;
@@ -15,7 +16,7 @@ public class GameCreatorLogic
 
     public async Task<long> CreateNew(string uniqueIdentity, ICollection<ProfileEntity> profiles, CancellationToken cancellationToken = default)
     {
-        var stageGameLogic = _unitOfWork.GetLongLogic<StageEntity>();
+        var stageGameLogic = _unitOfWork.GetLongLogic<StageEntity>(UniqueIdentityStrategy.BusinessTwoSegment);
 
         var findStage = await stageGameLogic
             .GetBy(x => x.PlayerCount == profiles.Count, cancellationToken: cancellationToken)
@@ -61,7 +62,7 @@ public class GameCreatorLogic
 
     public async Task<List<OfflineGameProfileRoleEntity>> AsignRolesToProfiles(ICollection<ProfileEntity> profiles, byte minionOfMerlinCount, byte minionOfMordredCount, CancellationToken cancellationToken = default)
     {
-        var roleGameLogic = _unitOfWork.GetLongLogic<RoleEntity>();
+        var roleGameLogic = _unitOfWork.GetLongLogic<RoleEntity>(UniqueIdentityStrategy.BusinessTwoSegment);
         var roles = await roleGameLogic
             .GetAll(cancellationToken)
             .AsCheckedResult();

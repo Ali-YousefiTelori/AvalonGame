@@ -147,6 +147,7 @@ public class FinishUpGameViewModel : PushPageBaseViewModel<(CreateGameResponseCo
             {
                 await NavigationManagerBase.Current.PopAsync();
             }
+            await NavigationManagerBase.Current.PushAsync(PagesConstants.MainMenuPage);
         }
     }
 }

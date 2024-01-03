@@ -1,6 +1,6 @@
 ﻿namespace Avalon.Database.Entities.Relations
 {
-    public class OfflineGameMissionProfileEntity
+    public class OfflineGameMissionProfileEntity : FullAbilitySchema
     {
         public long OfflineGameMissionId { get; set; }
         public long ProfileId { get; set; }

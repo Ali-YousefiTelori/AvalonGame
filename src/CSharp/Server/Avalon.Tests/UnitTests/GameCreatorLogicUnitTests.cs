@@ -8,6 +8,7 @@ using EasyMicroservices.ServiceContracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using EasyMicroservices.Cores.Contracts.Requests;
+using EasyMicroservices.Cores.DataTypes;
 
 namespace Avalon.Tests.UnitTests;
 public class GameCreatorLogicUnitTests : IClassFixture<UnitTestsFixture>, IClassFixture<WhiteLabelLaboratoryFixture>
@@ -82,7 +83,7 @@ public class GameCreatorLogicUnitTests : IClassFixture<UnitTestsFixture>, IClass
             UniqueIdentity = "1-2"
         }, EasyMicroservices.Cores.DataTypes.GetUniqueIdentityType.All)
             .AsCheckedResult();
-        var roles = await _unitOfWork.GetLongLogic<RoleEntity>()
+        var roles = await _unitOfWork.GetLongLogic<RoleEntity>(UniqueIdentityStrategy.BusinessTwoSegment)
             .GetAll()
             .AsCheckedResult();
         var profileRoles = await _gameCreatorLogic.AsignRolesToProfiles(myProfiles.Take(playerCount).ToList(), peopleCount, minionOfMordredCount);

@@ -1,8 +1,7 @@
 ﻿namespace Avalon.Database.Entities.Relations
 {
-    public class OfflineGameProfileRoleEntity : IIdSchema<long>
+    public class OfflineGameProfileRoleEntity : FullAbilityIdSchema<long>
     {
-        public long Id { get; set; }
         public long OfflineGameId { get; set; }
         public long ProfileId { get; set; }
         /// <summary>

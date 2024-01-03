@@ -3,5 +3,5 @@
              xmlns:p="clr-namespace:EasyMicroservices.UI.MauiComponents.Design.Pages;assembly=EasyMicroservices.UI.MauiComponents"
              xmlns:identity="clr-namespace:EasyMicroservices.UI.Identity.Maui.Design.Views;assembly=EasyMicroservices.UI.Identity.Maui"
              x:Class="AvalonUI.MainPage">
-    <identity:LoginView/>
+    <!--<identity:LoginView/>-->
 </p:EasyContentPage>

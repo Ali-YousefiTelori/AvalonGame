@@ -1,6 +1,6 @@
 ﻿namespace Avalon.Database.Schemas
 {
-    public class MissionSchema : DateTimeSchema
+    public class MissionSchema : FullAbilitySchema
     {
         public byte Index { get; set; }
         /// <summary>
