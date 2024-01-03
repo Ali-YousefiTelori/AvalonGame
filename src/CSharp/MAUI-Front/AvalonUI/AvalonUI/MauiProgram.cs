@@ -19,6 +19,9 @@ public static class MauiProgram
         BaseViewModel.IsRightToLeft = true;
         BaseViewModel.OnGlobalServiceErrorHandler = async (error) =>
         {
+            if (error.FailedReasonType != EasyMicroservices.ServiceContracts.FailedReasonType.AccessDenied
+            && error.FailedReasonType != EasyMicroservices.ServiceContracts.FailedReasonType.SessionAccessDenied)
+                return false;
             for (int i = 0; i < 10; i++)
             {
                 await NavigationManagerBase.Current.PopAsync();

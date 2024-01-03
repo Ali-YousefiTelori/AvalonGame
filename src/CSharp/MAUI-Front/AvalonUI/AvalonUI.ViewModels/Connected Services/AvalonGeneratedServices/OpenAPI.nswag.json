@@ -1,4 +1,4 @@
-﻿{
+{
   "openapi": "3.0.1",
   "info": {
     "title": "Avalon.WebApp",
@@ -789,6 +789,55 @@
         }
       }
     },
+    "/api/Profile/GetBy": {
+      "post": {
+        "tags": [
+          "Profile"
+        ],
+        "operationId": "GetBy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64GetByRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64GetByRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64GetByRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileContractMessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileContractMessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileContractMessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Profile/Filter": {
       "post": {
         "tags": [
@@ -910,6 +959,801 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ProfileContractListMessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/GetGlobalMessage": {
+      "get": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "GetGlobalMessage",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringMessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringMessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringMessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/Add": {
+      "post": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "Add2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int64MessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int64MessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int64MessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/AddBulk": {
+      "post": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "AddBulk2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContractCreateBulkRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContractCreateBulkRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContractCreateBulkRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/Update": {
+      "put": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "Update2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/UpdateChangedValuesOnly": {
+      "put": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "UpdateChangedValuesOnly2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/UpdateBulk": {
+      "put": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "UpdateBulk2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContractUpdateBulkRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContractUpdateBulkRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContractUpdateBulkRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/UpdateBulkChangedValuesOnly": {
+      "put": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "UpdateBulkChangedValuesOnly2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContractUpdateBulkRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContractUpdateBulkRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserFeedbackContractUpdateBulkRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/HardDeleteById": {
+      "delete": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "HardDeleteById2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64DeleteRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64DeleteRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64DeleteRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/HardDeleteBulkByIds": {
+      "delete": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "HardDeleteBulkByIds2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64DeleteBulkRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64DeleteBulkRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64DeleteBulkRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/SoftDeleteById": {
+      "delete": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "SoftDeleteById2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64SoftDeleteRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64SoftDeleteRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64SoftDeleteRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/SoftDeleteBulkByIds": {
+      "delete": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "SoftDeleteBulkByIds2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64SoftDeleteBulkRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64SoftDeleteBulkRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64SoftDeleteBulkRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/GetById": {
+      "post": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "GetById2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64GetByIdRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64GetByIdRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64GetByIdRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/GetByUniqueIdentity": {
+      "post": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "GetByUniqueIdentity2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetByUniqueIdentityRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetByUniqueIdentityRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetByUniqueIdentityRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/GetBy": {
+      "post": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "GetBy2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64GetByRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64GetByRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Int64GetByRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractMessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/Filter": {
+      "post": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "Filter2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FilterRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FilterRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/FilterRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractListMessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractListMessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractListMessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/GetAll": {
+      "get": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "GetAll2",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractListMessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractListMessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractListMessageContract"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/UserFeedback/GetAllByUniqueIdentity": {
+      "post": {
+        "tags": [
+          "UserFeedback"
+        ],
+        "operationId": "GetAllByUniqueIdentity2",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetByUniqueIdentityRequestContract"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetByUniqueIdentityRequestContract"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetByUniqueIdentityRequestContract"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractListMessageContract"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractListMessageContract"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserFeedbackContractListMessageContract"
                 }
               }
             }
@@ -1264,6 +2108,24 @@
           }
         }
       },
+      "Int64GetByRequestContract": {
+        "title": "GetByRequestContract<Int64>",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "uniqueIdentity": {
+            "type": "string",
+            "nullable": true
+          },
+          "uniqueIdentityType": {
+            "$ref": "#/components/schemas/GetUniqueIdentityType"
+          }
+        }
+      },
       "Int64MessageContract": {
         "title": "MessageContract<Int64>",
         "type": "object",
@@ -1398,29 +2260,6 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "creationDateTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "modificationDateTime": {
-            "title": "Nullable<DateTime>",
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "isDeleted": {
-            "type": "boolean"
-          },
-          "deletedDateTime": {
-            "title": "Nullable<DateTime>",
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "uniqueIdentity": {
-            "type": "string",
-            "nullable": true
-          },
           "name": {
             "type": "string",
             "nullable": true
@@ -1446,29 +2285,6 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "creationDateTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "modificationDateTime": {
-            "title": "Nullable<DateTime>",
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "isDeleted": {
-            "type": "boolean"
-          },
-          "deletedDateTime": {
-            "title": "Nullable<DateTime>",
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "uniqueIdentity": {
-            "type": "string",
-            "nullable": true
-          },
           "name": {
             "type": "string",
             "nullable": true
@@ -1613,6 +2429,101 @@
           "endUserMessage": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "UserFeedbackContract": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "contactInformation": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "UserFeedbackContractCreateBulkRequestContract": {
+        "title": "CreateBulkRequestContract<UserFeedbackContract>",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "title": "List<UserFeedbackContract>",
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/UserFeedbackContract"
+            }
+          }
+        }
+      },
+      "UserFeedbackContractListMessageContract": {
+        "title": "ListMessageContract<UserFeedbackContract>",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorContract"
+          },
+          "success": {
+            "$ref": "#/components/schemas/SuccessContract"
+          },
+          "result": {
+            "title": "List<UserFeedbackContract>",
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/UserFeedbackContract"
+            }
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "hasItems": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        }
+      },
+      "UserFeedbackContractMessageContract": {
+        "title": "MessageContract<UserFeedbackContract>",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "isSuccess": {
+            "type": "boolean"
+          },
+          "error": {
+            "$ref": "#/components/schemas/ErrorContract"
+          },
+          "success": {
+            "$ref": "#/components/schemas/SuccessContract"
+          },
+          "result": {
+            "$ref": "#/components/schemas/UserFeedbackContract"
+          }
+        }
+      },
+      "UserFeedbackContractUpdateBulkRequestContract": {
+        "title": "UpdateBulkRequestContract<UserFeedbackContract>",
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "items": {
+            "title": "List<UserFeedbackContract>",
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/UserFeedbackContract"
+            }
           }
         }
       },

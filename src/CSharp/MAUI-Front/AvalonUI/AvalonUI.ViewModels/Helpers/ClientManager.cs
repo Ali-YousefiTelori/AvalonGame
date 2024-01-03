@@ -14,6 +14,6 @@ public static class ClientManager
     public static HttpClient HttpClient { get; } = new HttpClient();
     public static ProfileClient ProfileClient { get; } = new ProfileClient(Url, HttpClient);
     public static GameClient GameClient { get; } = new GameClient(Url, HttpClient);
+    public static UserFeedbackClient UserFeedbackClient { get; } = new UserFeedbackClient(Url, HttpClient);
     public static AuthenticationClient AuthenticationClient { get; } = new AuthenticationClient(IdentityUrl, HttpClient);
-
 }

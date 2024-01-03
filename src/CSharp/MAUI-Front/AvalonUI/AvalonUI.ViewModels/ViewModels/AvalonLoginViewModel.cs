@@ -42,6 +42,7 @@ public class AvalonLoginViewModel : LoginViewModel
         else
             await DisplayError("نام کاربری یا رمز عبور صحیح نمی‌باشد.");
     }
+
     static bool DidFirstLogin = false;
     async Task LoadAppData()
     {

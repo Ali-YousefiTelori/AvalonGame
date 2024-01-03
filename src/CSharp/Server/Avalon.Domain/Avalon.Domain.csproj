@@ -6,13 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <!--<ItemGroup>
-    <PackageReference Include="EasyMicroservices.Cores.AspEntityFrameworkCoreApi" Version="0.0.0.94" />
-  </ItemGroup>-->
-
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\EasyMicroservices\Cores\src\CSharp\EasyMicroservices.Cores.AspEntityFrameworkCoreApi\EasyMicroservices.Cores.AspEntityFrameworkCoreApi.csproj" />
-    <ProjectReference Include="..\..\..\..\..\..\EasyMicroservices\Cores\src\CSharp\EasyMicroservices.Cores.Clients\EasyMicroservices.Cores.Clients.csproj" />
+    <PackageReference Include="EasyMicroservices.Cores.AspEntityFrameworkCoreApi" Version="0.0.0.94" />
   </ItemGroup>
 
 </Project>

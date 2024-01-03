@@ -18,6 +18,7 @@ namespace Avalon.Database.Contexts
         public DbSet<OfflineGameMissionProfileEntity> OfflineGameMissionProfiles { get; set; }
         public DbSet<OfflineGameMissionEntity> OfflineGameMissions { get; set; }
         public DbSet<FinishUpGameEntity> FinishUpGames { get; set; }
+        public DbSet<UserFeedbackEntity> UserFeedbacks { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
