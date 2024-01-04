@@ -28,7 +28,7 @@
                             </Grid.ColumnDefinitions>
                             <HorizontalStackLayout VerticalOptions="Center">
                                 <CheckBox IsChecked="{Binding IsSelected}"/>
-                                <Label Text="{Binding Profile.Name}" VerticalOptions="Center"/>
+                                <Label Margin="0,10,0,10" Text="{Binding Profile.Name}" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                         </Grid>
                     </Border>
@@ -44,7 +44,7 @@
                                 <ColumnDefinition Width="auto"/>
                             </Grid.ColumnDefinitions>
                             <HorizontalStackLayout VerticalOptions="Center">
-                                <Label Text="{Binding Profile.Name}" VerticalOptions="Center"/>
+                                <Label Margin="0,10,0,10" Text="{Binding Profile.Name}" VerticalOptions="Center"/>
                             </HorizontalStackLayout>
                             <ImageButton Grid.Column="1" BackgroundColor="#01FFFFFF" HeightRequest="20" Command="{Binding OpenItemMenuCommand,Source={StaticResource UserProfilesViewModel}}" CommandParameter="{Binding}">
                                 <ImageButton.Source>

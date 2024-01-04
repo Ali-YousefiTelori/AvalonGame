@@ -30,5 +30,10 @@ public partial class MainPage : EasyContentPage
     {
         ((DefaultNavigationManager)NavigationManagerBase.Current).RegisterContentPage<TView>(name);
     }
+
+    private void Button_Clicked(object sender, EventArgs e)
+    {
+        NavigationManagerBase.Current.PushAsync(PagesConstants.LoginPage, true);
+    }
 }
 

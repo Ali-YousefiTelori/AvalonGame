@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:p="clr-namespace:EasyMicroservices.UI.MauiComponents.Design.Pages;assembly=EasyMicroservices.UI.MauiComponents"
              xmlns:identity="clr-namespace:EasyMicroservices.UI.Identity.Maui.Design.Views;assembly=EasyMicroservices.UI.Identity.Maui"
-             x:Class="AvalonUI.MainPage">
-    <!--<identity:LoginView/>-->
+             x:Class="AvalonUI.MainPage"
+             Title="بازی Avalon">
+    <Button Text="اجرا" VerticalOptions="Center" HorizontalOptions="Center" Clicked="Button_Clicked"/>
 </p:EasyContentPage>
