@@ -1,4 +1,5 @@
 ﻿using AvalonUI.Helpers;
+using AvalonUI.Interfaces;
 using AvalonUI.ViewModels;
 using EasyMicroservices.Domain.Contracts.Common;
 using EasyMicroservices.Security;
@@ -46,6 +47,7 @@ public static class MauiProgram
         builder.Services.AddTransient<RegisterViewModel, AvalonRegisterViewModel>();
         builder.Services.AddScoped<ISecurityProvider, SHA256HashProvider>();
         builder.Services.AddSingleton((sp) => ClientManager.HttpClient);
+        builder.Services.AddSingleton<IGoogleSearch, GoogleSearchProvider>();
 #if DEBUG
         builder.Logging.AddDebug();
 #endif

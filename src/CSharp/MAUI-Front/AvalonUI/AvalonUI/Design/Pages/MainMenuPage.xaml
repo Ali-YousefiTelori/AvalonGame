@@ -12,11 +12,22 @@
     <p:EasyContentPage.BindingContext>
         <Binding Source="{StaticResource MainMenuPageViewModel}"/>
     </p:EasyContentPage.BindingContext>
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
-        <Button Text="مدیریت بازیکنان" Command="{Binding ProfilesPageCommand}"/>
-        <Button Text="شروع بازی" Command="{Binding StartCommand}"/>
-        <Button Text="ارائه‌ی پیشنهاد و انتقاد" Command="{Binding SendFeedbackCommand}"/>
-        <Button Text="خروج از کاربری" Command="{Binding LogoutCommand}" IsEnabled="{Binding IsNotBusy}"/>
-        <Label Text="{Binding GlobalMessage}" TextType="Html" LineBreakMode="WordWrap"/>
-    </VerticalStackLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ScrollView HorizontalScrollBarVisibility="Never" VerticalOptions="End" HorizontalOptions="Center">
+            <VerticalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Button Text="آموزش" Command="{Binding LearnPageCommand}"/>
+                <Button Text="مدیریت بازیکنان" Command="{Binding ProfilesPageCommand}"/>
+                <Button Text="شروع بازی" Command="{Binding StartCommand}"/>
+                <Button Text="ارائه‌ی پیشنهاد و انتقاد" Command="{Binding SendFeedbackCommand}"/>
+                <Button Text="خروج از کاربری" Command="{Binding LogoutCommand}" IsEnabled="{Binding IsNotBusy}"/>
+            </VerticalStackLayout>
+        </ScrollView>
+        <ScrollView HorizontalScrollBarVisibility="Never" Grid.Row="1" HorizontalOptions="Center">
+            <Label Margin="5" FlowDirection="RightToLeft" HorizontalOptions="Center" Text="{Binding GlobalMessage}" TextType="Html" LineBreakMode="WordWrap"/>
+        </ScrollView>
+    </Grid>
 </p:EasyContentPage>

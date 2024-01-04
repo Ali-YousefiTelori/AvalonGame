@@ -1,8 +1,11 @@
 ﻿using Avalon.GeneratedServices;
 using AvalonUI.Helpers;
+using AvalonUI.Interfaces;
 using EasyMicroservices.UI.Cores;
 using EasyMicroservices.UI.Cores.Commands;
 using EasyMicroservices.UI.Cores.Navigations;
+using EasyMicroservices.UI.Identity.Helpers;
+using Microsoft.Extensions.DependencyInjection;
 using System.Text;
 
 namespace AvalonUI.ViewModels;
@@ -10,6 +13,7 @@ public class MainMenuPageViewModel : PageBaseViewModel
 {
     public MainMenuPageViewModel()
     {
+        LearnPageCommand = new TaskRelayCommand(LearnPage);
         ProfilesPageCommand = new TaskRelayCommand(ProfilesPage);
         StartCommand = new TaskRelayCommand(Start);
         SendFeedbackCommand = new TaskRelayCommand(SendFeedback);
@@ -26,7 +30,8 @@ public class MainMenuPageViewModel : PageBaseViewModel
     {
         await NavigationManagerBase.Current.PushDataAsync(true, PagesConstants.ProfilesPage);
     }
-
+    
+    public TaskRelayCommand LearnPageCommand { get; set; }
     public TaskRelayCommand ProfilesPageCommand { get; set; }
     public TaskRelayCommand StartCommand { get; set; }
     public TaskRelayCommand SendFeedbackCommand { get; set; }
@@ -89,5 +94,11 @@ public class MainMenuPageViewModel : PageBaseViewModel
             }
             await NavigationManagerBase.Current.PushAsync(PagesConstants.LoginPage);
         }
+    }
+
+    private Task LearnPage()
+    {
+        var serviceSearch = ViewModelLocator.ServiceProvider.GetService<IGoogleSearch>();
+        return serviceSearch.OpenSearchResultAsync("آموزش بازی Avalon");
     }
 }
