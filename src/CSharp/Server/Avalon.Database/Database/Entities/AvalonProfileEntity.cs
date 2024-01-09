@@ -6,7 +6,7 @@ namespace Avalon.Database.Entities
     /// <summary>
     /// profiles are for offline games
     /// </summary>
-    public class ProfileEntity : ProfileSchema, IIdSchema<long>
+    public class AvalonProfileEntity : ProfileSchema, IIdSchema<long>
     {
         public long Id { get; set; }
 

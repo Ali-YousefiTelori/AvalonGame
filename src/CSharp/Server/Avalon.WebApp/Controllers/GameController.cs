@@ -28,7 +28,7 @@ public class GameController : ControllerBase
     {
         var currentUser = _appUnitOfWork.GetCurrentUser();
         var logic = _appUnitOfWork.GetGameCreatorLogic();
-        var profileLogic = _appUnitOfWork.GetLongLogic<ProfileEntity>();
+        var profileLogic = _appUnitOfWork.GetLongLogic<AvalonProfileEntity>();
         var userProfiles = await profileLogic.GetAllByUniqueIdentity(new GetByUniqueIdentityRequestContract()
         {
             UniqueIdentity = currentUser.UniqueIdentity
@@ -49,8 +49,8 @@ public class GameController : ControllerBase
 
         List<OfflineGameProfileRoleEntity> result = new List<OfflineGameProfileRoleEntity>();
         var gameProfiles = await gameProfileRoleLogic.GetAll(q => q.Where(x => x.OfflineGameId == gameId)
-                                                .Include(x => x.Role)
-                                                .Include(x => x.Profile), cancellationToken)
+                                                .Include(x => x.AvalonRole)
+                                                .Include(x => x.AvalonProfile), cancellationToken)
                                                 .AsCheckedResult();
 
         return new CreateGameResponseContract()
@@ -58,9 +58,9 @@ public class GameController : ControllerBase
             GameId = gameId,
             GameProfiles = gameProfiles.Select(x => new GameProfileContract()
             {
-                ProfileId = x.ProfileId,
-                RoleName = x.Role.Name,
-                IsMinionOfMordred = x.Role.IsMinionOfMordred
+                ProfileId = x.AvalonProfileId,
+                RoleName = x.AvalonRole.Name,
+                IsMinionOfMordred = x.AvalonRole.IsMinionOfMordred
             }).ToList()
         };
     }

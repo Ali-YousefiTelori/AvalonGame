@@ -41,7 +41,7 @@ public class GameMissionsLogic
         var gameMissionLogic = _unitOfWork.GetLongLogic<OfflineGameMissionEntity>();
         var gameMissionProfileLogic = _unitOfWork.GetLogic<OfflineGameMissionProfileEntity>();
         var gameMissionProfile = await gameMissionProfileLogic
-            .GetBy(x => x.OfflineGameMissionId == gameMissionId && x.ProfileId == profileId,
+            .GetBy(x => x.OfflineGameMissionId == gameMissionId && x.AvalonProfileId == profileId,
             q => q.Include(x => x.OfflineGameMission), cancellationToken);
         if (gameMissionProfile)
             return true;
@@ -52,7 +52,7 @@ public class GameMissionsLogic
 
         await gameMissionProfileLogic.Add(new OfflineGameMissionProfileEntity()
         {
-            ProfileId = profileId,
+            AvalonProfileId = profileId,
             OfflineGameMissionId = gameMissionId,
             IsFail = isFail
         }, cancellationToken).AsCheckedResult();
@@ -73,25 +73,25 @@ public class GameMissionsLogic
         var game = await gameLogic
             .GetById(gameId, q => q
                 .Include(x => x.OfflineGameProfileRoles)
-                .ThenInclude(x => x.Profile)
+                .ThenInclude(x => x.AvalonProfile)
                 .Include(x => x.OfflineGameProfileRoles)
-                .ThenInclude(x => x.Role)
+                .ThenInclude(x => x.AvalonRole)
             , cancellationToken)
             .AsCheckedResult();
-        var merlinProfile = game.OfflineGameProfileRoles.FirstOrDefault(x => x.Role.Name == RoleConstants.Merlin);
+        var merlinProfile = game.OfflineGameProfileRoles.FirstOrDefault(x => x.AvalonRole.Name == RoleConstants.Merlin);
 
         var gameMissionProfile = await finishUpGameLogic
             .GetBy(x => x.OfflineGameId == gameId, cancellationToken: cancellationToken);
 
         if (gameMissionProfile)
-            return (FailedReasonType.Duplicate, $"You previously guessed Merlin with {game.OfflineGameProfileRoles.FirstOrDefault(x => x.ProfileId == gameMissionProfile.Result.ProfileId).Profile.Name}’s profile; Merlin’s profile is {merlinProfile.Profile.Name}.");
+            return (FailedReasonType.Duplicate, $"You previously guessed Merlin with {game.OfflineGameProfileRoles.FirstOrDefault(x => x.AvalonProfileId == gameMissionProfile.Result.AvalonProfileId).AvalonProfile.Name}’s profile; Merlin’s profile is {merlinProfile.AvalonProfile.Name}.");
 
         await finishUpGameLogic.Add(new FinishUpGameEntity()
         {
-            ProfileId = guessMerlinProfileId,
+            AvalonProfileId = guessMerlinProfileId,
             OfflineGameId = gameId
         }, cancellationToken).AsCheckedResult();
 
-        return merlinProfile.Profile.Name;
+        return merlinProfile.AvalonProfile.Name;
     }
 }

@@ -35,7 +35,7 @@ public class GameCreatorLogicUnitTests : IClassFixture<UnitTestsFixture>, IClass
     [InlineData(15, 8, 7)]
     public async Task CreateGameAsync(byte playerCount, byte peopleCount, byte minionOfMordredCount)
     {
-        var myProfiles = await _unitOfWork.GetLongLogic<ProfileEntity>()
+        var myProfiles = await _unitOfWork.GetLongLogic<AvalonProfileEntity>()
         .GetAllByUniqueIdentity(new GetByUniqueIdentityRequestContract()
         {
             UniqueIdentity = "1-2"
@@ -56,11 +56,11 @@ public class GameCreatorLogicUnitTests : IClassFixture<UnitTestsFixture>, IClass
         Assert.True(stage.MinionOfMerlinCount == peopleCount);
 
         var profiles = await _unitOfWork.GetLongLogic<OfflineGameProfileRoleEntity>()
-            .GetAll(q => q.Where(x => x.OfflineGameId == gameId).Include(x => x.Role))
+            .GetAll(q => q.Where(x => x.OfflineGameId == gameId).Include(x => x.AvalonRole))
             .AsCheckedResult();
         Assert.True(profiles.Count == stage.PlayerCount);
-        Assert.True(profiles.Count(x => x.Role.IsMinionOfMordred) == stage.MinionOfMordredCount);
-        Assert.True(profiles.Count(x => !x.Role.IsMinionOfMordred) == stage.MinionOfMerlinCount);
+        Assert.True(profiles.Count(x => x.AvalonRole.IsMinionOfMordred) == stage.MinionOfMordredCount);
+        Assert.True(profiles.Count(x => !x.AvalonRole.IsMinionOfMordred) == stage.MinionOfMerlinCount);
     }
 
     [Theory]
@@ -77,38 +77,38 @@ public class GameCreatorLogicUnitTests : IClassFixture<UnitTestsFixture>, IClass
     [InlineData(15, 8, 7)]
     public async Task AssignRolesToProfilesAsync(byte playerCount, byte peopleCount, byte minionOfMordredCount)
     {
-        var myProfiles = await _unitOfWork.GetLongLogic<ProfileEntity>()
+        var myProfiles = await _unitOfWork.GetLongLogic<AvalonProfileEntity>()
         .GetAllByUniqueIdentity(new GetByUniqueIdentityRequestContract()
         {
             UniqueIdentity = "1-2"
         }, EasyMicroservices.Cores.DataTypes.GetUniqueIdentityType.All)
             .AsCheckedResult();
-        var roles = await _unitOfWork.GetLongLogic<RoleEntity>(UniqueIdentityStrategy.BusinessTwoSegment)
+        var roles = await _unitOfWork.GetLongLogic<AvalonRoleEntity>(UniqueIdentityStrategy.BusinessTwoSegment)
             .GetAll()
             .AsCheckedResult();
         var profileRoles = await _gameCreatorLogic.AsignRolesToProfiles(myProfiles.Take(playerCount).ToList(), peopleCount, minionOfMordredCount);
         foreach (var item in profileRoles)
         {
-            item.Role = roles.FirstOrDefault(x=>x.Id == item.Roled);
+            item.AvalonRole = roles.FirstOrDefault(x=>x.Id == item.AvalonRoleId);
         }
         Assert.True(profileRoles.Count == playerCount);
-        Assert.Contains(profileRoles, x => x.Role.Name == RoleConstants.Merlin);
-        Assert.Contains(profileRoles, x => x.Role.Name == RoleConstants.Percival);
-        Assert.Contains(profileRoles, x => x.Role.Name == RoleConstants.Mordred);
+        Assert.Contains(profileRoles, x => x.AvalonRole.Name == RoleConstants.Merlin);
+        Assert.Contains(profileRoles, x => x.AvalonRole.Name == RoleConstants.Percival);
+        Assert.Contains(profileRoles, x => x.AvalonRole.Name == RoleConstants.Mordred);
         if (playerCount == 5 || playerCount == 6)
         {
-            Assert.Contains(profileRoles, x => x.Role.Name == RoleConstants.Morgana || x.Role.Name == RoleConstants.Assassin);
+            Assert.Contains(profileRoles, x => x.AvalonRole.Name == RoleConstants.Morgana || x.AvalonRole.Name == RoleConstants.Assassin);
         }
         else
         {
-            Assert.Contains(profileRoles, x => x.Role.Name == RoleConstants.Morgana);
-            Assert.Contains(profileRoles, x => x.Role.Name == RoleConstants.Assassin);
+            Assert.Contains(profileRoles, x => x.AvalonRole.Name == RoleConstants.Morgana);
+            Assert.Contains(profileRoles, x => x.AvalonRole.Name == RoleConstants.Assassin);
         }
-        foreach (var item in profileRoles.GroupBy(x => x.Roled))
+        foreach (var item in profileRoles.GroupBy(x => x.AvalonRoleId))
         {
             Assert.True(item.Count() == 1);
         }
-        foreach (var item in profileRoles.GroupBy(x => x.ProfileId))
+        foreach (var item in profileRoles.GroupBy(x => x.AvalonProfileId))
         {
             Assert.True(item.Count() == 1);
         }

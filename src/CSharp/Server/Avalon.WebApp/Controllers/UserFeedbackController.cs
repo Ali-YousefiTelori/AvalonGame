@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Avalon.WebApp.Controllers;
 
 [AvalonSecurity]
-public class UserFeedbackController : SimpleQueryServiceController<UserFeedbackEntity, UserFeedbackContract, UserFeedbackContract, UserFeedbackContract, long>
+public class UserFeedbackController : SimpleQueryServiceController<AvalonUserFeedbackEntity, UserFeedbackContract, UserFeedbackContract, UserFeedbackContract, long>
 {
     public UserFeedbackController(IUnitOfWork unitOfWork) : base(unitOfWork)
     {

@@ -6,7 +6,7 @@ using EasyMicroservices.Cores.AspEntityFrameworkCoreApi.Interfaces;
 namespace Avalon.WebApp.Controllers;
 
 [AvalonSecurity]
-public class ProfileController : SimpleQueryServiceController<ProfileEntity, ProfileBaseContract, ProfileContract, ProfileContract, long>
+public class ProfileController : SimpleQueryServiceController<AvalonProfileEntity, ProfileBaseContract, ProfileContract, ProfileContract, long>
 {
     public ProfileController(IUnitOfWork unitOfWork) : base(unitOfWork)
     {

@@ -14,7 +14,7 @@ public class GameCreatorLogic
         _unitOfWork = unitOfWork;
     }
 
-    public async Task<long> CreateNew(string uniqueIdentity, ICollection<ProfileEntity> profiles, CancellationToken cancellationToken = default)
+    public async Task<long> CreateNew(string uniqueIdentity, ICollection<AvalonProfileEntity> profiles, CancellationToken cancellationToken = default)
     {
         var stageGameLogic = _unitOfWork.GetLongLogic<StageEntity>(UniqueIdentityStrategy.BusinessTwoSegment);
 
@@ -60,9 +60,9 @@ public class GameCreatorLogic
         }, cancellationToken);
     }
 
-    public async Task<List<OfflineGameProfileRoleEntity>> AsignRolesToProfiles(ICollection<ProfileEntity> profiles, byte minionOfMerlinCount, byte minionOfMordredCount, CancellationToken cancellationToken = default)
+    public async Task<List<OfflineGameProfileRoleEntity>> AsignRolesToProfiles(ICollection<AvalonProfileEntity> profiles, byte minionOfMerlinCount, byte minionOfMordredCount, CancellationToken cancellationToken = default)
     {
-        var roleGameLogic = _unitOfWork.GetLongLogic<RoleEntity>(UniqueIdentityStrategy.BusinessTwoSegment);
+        var roleGameLogic = _unitOfWork.GetLongLogic<AvalonRoleEntity>(UniqueIdentityStrategy.BusinessTwoSegment);
         var roles = await roleGameLogic
             .GetAll(cancellationToken)
             .AsCheckedResult();
@@ -84,8 +84,8 @@ public class GameCreatorLogic
             merge.Remove(role);
             result.Add(new OfflineGameProfileRoleEntity()
             {
-                Roled = role.Id,
-                ProfileId = item.Id
+                AvalonRoleId = role.Id,
+                AvalonProfileId = item.Id
             });
         }
         return result;

@@ -37,7 +37,7 @@ public class GameIntegrationTests : IClassFixture<UnitTestsFixture>, IClassFixtu
     public async Task DoGameAsync(byte playerCount, byte peopleCount, byte minionOfMordredCount)
     {
         #region create game
-        var myProfiles = await _unitOfWork.GetLongLogic<ProfileEntity>()
+        var myProfiles = await _unitOfWork.GetLongLogic<AvalonProfileEntity>()
         .GetAllByUniqueIdentity(new GetByUniqueIdentityRequestContract()
         {
             UniqueIdentity = "1-2"
@@ -59,12 +59,12 @@ public class GameIntegrationTests : IClassFixture<UnitTestsFixture>, IClassFixtu
 
         var profiles = await _unitOfWork.GetLongLogic<OfflineGameProfileRoleEntity>()
             .GetAll(q => q.Where(x => x.OfflineGameId == gameId)
-                .Include(x => x.Role)
-                .Include(x => x.Profile))
+                .Include(x => x.AvalonRole)
+                .Include(x => x.AvalonProfile))
             .AsCheckedResult();
         Assert.True(profiles.Count == stage.PlayerCount);
-        Assert.True(profiles.Count(x => x.Role.IsMinionOfMordred) == stage.MinionOfMordredCount);
-        Assert.True(profiles.Count(x => !x.Role.IsMinionOfMordred) == stage.MinionOfMerlinCount);
+        Assert.True(profiles.Count(x => x.AvalonRole.IsMinionOfMordred) == stage.MinionOfMordredCount);
+        Assert.True(profiles.Count(x => !x.AvalonRole.IsMinionOfMordred) == stage.MinionOfMerlinCount);
         #endregion
 
         #region do missions
@@ -79,7 +79,7 @@ public class GameIntegrationTests : IClassFixture<UnitTestsFixture>, IClassFixtu
             foreach (var missionProfile in missionProfiles)
             {
                 await _gameMissionsLogic
-                     .SentMissionVote(gameMission.Id, missionProfile.Id, missionProfile.Role.IsMinionOfMordred)
+                     .SentMissionVote(gameMission.Id, missionProfile.Id, missionProfile.AvalonRole.IsMinionOfMordred)
                      .AsCheckedResult();
             }
             var notCachedMissionLogic = _unitOfWork.GetLongLogic<OfflineGameMissionEntity>();
@@ -87,18 +87,18 @@ public class GameIntegrationTests : IClassFixture<UnitTestsFixture>, IClassFixtu
                 .GetById(gameMission.Id)
                 .AsCheckedResult();
             Assert.True(mission.IsFailed.HasValue);
-            Assert.Equal(mission.FailCount, missionProfiles.Count(x => x.Role.IsMinionOfMordred));
+            Assert.Equal(mission.FailCount, missionProfiles.Count(x => x.AvalonRole.IsMinionOfMordred));
         }
         #endregion
 
         #region finishup game
-        var merlin = profiles.FirstOrDefault(x => x.Role.Name == RoleConstants.Merlin);
+        var merlin = profiles.FirstOrDefault(x => x.AvalonRole.Name == RoleConstants.Merlin);
         var gameResult = await _gameMissionsLogic
-            .FinishUp(gameId, merlin.ProfileId)
+            .FinishUp(gameId, merlin.AvalonProfileId)
             .AsCheckedResult();
-        Assert.Equal(merlin.Profile.Name, gameResult);
+        Assert.Equal(merlin.AvalonProfile.Name, gameResult);
         var gameResultAgain = await _gameMissionsLogic
-            .FinishUp(gameId, merlin.ProfileId);
+            .FinishUp(gameId, merlin.AvalonProfileId);
         var all = await _unitOfWork.GetLogic<FinishUpGameEntity>().GetAll();
         Assert.True(gameResultAgain.Error.FailedReasonType == FailedReasonType.Duplicate);
         #endregion

@@ -25,64 +25,64 @@ public class UnitTestsFixture : IAsyncLifetime
         ServiceProvider = app.Services.BuildServiceProvider();
         using var scope = ServiceProvider.CreateScope();
         using var context = scope.ServiceProvider.GetService<AvalonContext>();
-        context.Profiles.AddRange(
-            new ProfileEntity()
+        context.AvalonProfiles.AddRange(
+            new AvalonProfileEntity()
             {
                 Name = "Ali",
             },
-            new ProfileEntity()
+            new AvalonProfileEntity()
             {
                 Name = "Yaghob",
             },
-            new ProfileEntity()
+            new AvalonProfileEntity()
             {
                 Name = "Ebrahim",
             },
-            new ProfileEntity()
+            new AvalonProfileEntity()
             {
                 Name = "Noah",
             },
-            new ProfileEntity()
+            new AvalonProfileEntity()
             {
                 Name = "Mosa",
             },
-            new ProfileEntity()
+            new AvalonProfileEntity()
             {
                 Name = "Younos",
             },
-            new ProfileEntity()
+            new AvalonProfileEntity()
             {
                 Name = "Yousof",
             },
-            new ProfileEntity()
+            new AvalonProfileEntity()
             {
                 Name = "Mohammad",
             },
-            new ProfileEntity()
+            new AvalonProfileEntity()
             {
                 Name = "Sam",
             },
-            new ProfileEntity()
+            new AvalonProfileEntity()
             {
                 Name = "David",
             },
-            new ProfileEntity()
+            new AvalonProfileEntity()
             {
                 Name = "Hamid",
             },
-            new ProfileEntity()
+            new AvalonProfileEntity()
             {
                 Name = "Mahmud",
             },
-            new ProfileEntity()
+            new AvalonProfileEntity()
             {
                 Name = "Mahdi",
             },
-            new ProfileEntity()
+            new AvalonProfileEntity()
             {
                 Name = "Hadi",
             },
-            new ProfileEntity()
+            new AvalonProfileEntity()
             {
                 Name = "Hamed",
             });

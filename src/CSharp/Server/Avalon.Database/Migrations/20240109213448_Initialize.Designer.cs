@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Avalon.Migrations
 {
     [DbContext(typeof(AvalonContext))]
-    [Migration("20231230160529_Initialize")]
+    [Migration("20240109213448_Initialize")]
     partial class Initialize
     {
         /// <inheritdoc />
@@ -25,100 +25,7 @@ namespace Avalon.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Avalon.Database.Entities.FinishUpGameEntity", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreationDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModificationDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("OfflineGameId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ProfileId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("UniqueIdentity")
-                        .HasColumnType("nvarchar(450)")
-                        .UseCollation("SQL_Latin1_General_CP1_CS_AS");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreationDateTime");
-
-                    b.HasIndex("DeletedDateTime");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("ModificationDateTime");
-
-                    b.HasIndex("OfflineGameId");
-
-                    b.HasIndex("ProfileId");
-
-                    b.HasIndex("UniqueIdentity");
-
-                    b.ToTable("FinishUpGames");
-                });
-
-            modelBuilder.Entity("Avalon.Database.Entities.OfflineGameEntity", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreationDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModificationDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("StageId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("UniqueIdentity")
-                        .HasColumnType("nvarchar(450)")
-                        .UseCollation("SQL_Latin1_General_CP1_CS_AS");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreationDateTime");
-
-                    b.HasIndex("DeletedDateTime");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.HasIndex("ModificationDateTime");
-
-                    b.HasIndex("StageId");
-
-                    b.HasIndex("UniqueIdentity");
-
-                    b.ToTable("OfflineGames");
-                });
-
-            modelBuilder.Entity("Avalon.Database.Entities.ProfileEntity", b =>
+            modelBuilder.Entity("Avalon.Database.Entities.AvalonProfileEntity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -157,99 +64,10 @@ namespace Avalon.Migrations
 
                     b.HasIndex("UniqueIdentity");
 
-                    b.ToTable("Profiles");
+                    b.ToTable("AvalonProfiles");
                 });
 
-            modelBuilder.Entity("Avalon.Database.Entities.Relations.OfflineGameMissionEntity", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreationDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("DoNeedsTwoOfFails")
-                        .HasColumnType("bit");
-
-                    b.Property<byte>("FailCount")
-                        .HasColumnType("tinyint");
-
-                    b.Property<byte>("Index")
-                        .HasColumnType("tinyint");
-
-                    b.Property<bool?>("IsFailed")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("ModificationDateTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long>("OfflineGameId")
-                        .HasColumnType("bigint");
-
-                    b.Property<byte>("PlayerCount")
-                        .HasColumnType("tinyint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreationDateTime");
-
-                    b.HasIndex("ModificationDateTime");
-
-                    b.HasIndex("OfflineGameId");
-
-                    b.ToTable("OfflineGameMissions");
-                });
-
-            modelBuilder.Entity("Avalon.Database.Entities.Relations.OfflineGameMissionProfileEntity", b =>
-                {
-                    b.Property<long>("OfflineGameMissionId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ProfileId")
-                        .HasColumnType("bigint");
-
-                    b.Property<bool?>("IsFail")
-                        .HasColumnType("bit");
-
-                    b.HasKey("OfflineGameMissionId", "ProfileId");
-
-                    b.HasIndex("ProfileId");
-
-                    b.ToTable("OfflineGameMissionProfiles");
-                });
-
-            modelBuilder.Entity("Avalon.Database.Entities.Relations.OfflineGameProfileRoleEntity", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("OfflineGameId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ProfileId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("Roled")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OfflineGameId");
-
-                    b.HasIndex("ProfileId");
-
-                    b.HasIndex("Roled");
-
-                    b.ToTable("OfflineGameProfileRoles");
-                });
-
-            modelBuilder.Entity("Avalon.Database.Entities.RoleEntity", b =>
+            modelBuilder.Entity("Avalon.Database.Entities.AvalonRoleEntity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -291,7 +109,7 @@ namespace Avalon.Migrations
 
                     b.HasIndex("UniqueIdentity");
 
-                    b.ToTable("Roles");
+                    b.ToTable("AvalonRoles");
 
                     b.HasData(
                         new
@@ -454,6 +272,301 @@ namespace Avalon.Migrations
                             IsMinionOfMordred = false,
                             Name = "People"
                         });
+                });
+
+            modelBuilder.Entity("Avalon.Database.Entities.AvalonUserFeedbackEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("ContactInformation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModificationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UniqueIdentity")
+                        .HasColumnType("nvarchar(450)")
+                        .UseCollation("SQL_Latin1_General_CP1_CS_AS");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreationDateTime");
+
+                    b.HasIndex("DeletedDateTime");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("ModificationDateTime");
+
+                    b.HasIndex("UniqueIdentity");
+
+                    b.ToTable("AvalonUserFeedbacks");
+                });
+
+            modelBuilder.Entity("Avalon.Database.Entities.FinishUpGameEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AvalonProfileId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModificationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("OfflineGameId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UniqueIdentity")
+                        .HasColumnType("nvarchar(450)")
+                        .UseCollation("SQL_Latin1_General_CP1_CS_AS");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AvalonProfileId");
+
+                    b.HasIndex("CreationDateTime");
+
+                    b.HasIndex("DeletedDateTime");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("ModificationDateTime");
+
+                    b.HasIndex("OfflineGameId");
+
+                    b.HasIndex("UniqueIdentity");
+
+                    b.ToTable("FinishUpGames");
+                });
+
+            modelBuilder.Entity("Avalon.Database.Entities.OfflineGameEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModificationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("StageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UniqueIdentity")
+                        .HasColumnType("nvarchar(450)")
+                        .UseCollation("SQL_Latin1_General_CP1_CS_AS");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreationDateTime");
+
+                    b.HasIndex("DeletedDateTime");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("ModificationDateTime");
+
+                    b.HasIndex("StageId");
+
+                    b.HasIndex("UniqueIdentity");
+
+                    b.ToTable("OfflineGames");
+                });
+
+            modelBuilder.Entity("Avalon.Database.Entities.Relations.OfflineGameMissionEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("DoNeedsTwoOfFails")
+                        .HasColumnType("bit");
+
+                    b.Property<byte>("FailCount")
+                        .HasColumnType("tinyint");
+
+                    b.Property<byte>("Index")
+                        .HasColumnType("tinyint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsFailed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModificationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("OfflineGameId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte>("PlayerCount")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("UniqueIdentity")
+                        .HasColumnType("nvarchar(450)")
+                        .UseCollation("SQL_Latin1_General_CP1_CS_AS");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreationDateTime");
+
+                    b.HasIndex("DeletedDateTime");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("ModificationDateTime");
+
+                    b.HasIndex("OfflineGameId");
+
+                    b.HasIndex("UniqueIdentity");
+
+                    b.ToTable("OfflineGameMissions");
+                });
+
+            modelBuilder.Entity("Avalon.Database.Entities.Relations.OfflineGameMissionProfileEntity", b =>
+                {
+                    b.Property<long>("OfflineGameMissionId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("AvalonProfileId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsFail")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModificationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UniqueIdentity")
+                        .HasColumnType("nvarchar(450)")
+                        .UseCollation("SQL_Latin1_General_CP1_CS_AS");
+
+                    b.HasKey("OfflineGameMissionId", "AvalonProfileId");
+
+                    b.HasIndex("AvalonProfileId");
+
+                    b.HasIndex("CreationDateTime");
+
+                    b.HasIndex("DeletedDateTime");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("ModificationDateTime");
+
+                    b.HasIndex("UniqueIdentity");
+
+                    b.ToTable("OfflineGameMissionProfiles");
+                });
+
+            modelBuilder.Entity("Avalon.Database.Entities.Relations.OfflineGameProfileRoleEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("AvalonProfileId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("AvalonRoleId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModificationDateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("OfflineGameId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("UniqueIdentity")
+                        .HasColumnType("nvarchar(450)")
+                        .UseCollation("SQL_Latin1_General_CP1_CS_AS");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AvalonProfileId");
+
+                    b.HasIndex("AvalonRoleId");
+
+                    b.HasIndex("CreationDateTime");
+
+                    b.HasIndex("DeletedDateTime");
+
+                    b.HasIndex("IsDeleted");
+
+                    b.HasIndex("ModificationDateTime");
+
+                    b.HasIndex("OfflineGameId");
+
+                    b.HasIndex("UniqueIdentity");
+
+                    b.ToTable("OfflineGameProfileRoles");
                 });
 
             modelBuilder.Entity("Avalon.Database.Entities.StageEntity", b =>
@@ -705,21 +818,21 @@ namespace Avalon.Migrations
 
             modelBuilder.Entity("Avalon.Database.Entities.FinishUpGameEntity", b =>
                 {
+                    b.HasOne("Avalon.Database.Entities.AvalonProfileEntity", "AvalonProfile")
+                        .WithMany("FinishUpGames")
+                        .HasForeignKey("AvalonProfileId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Avalon.Database.Entities.OfflineGameEntity", "OfflineGame")
                         .WithMany("FinishUpGames")
                         .HasForeignKey("OfflineGameId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Avalon.Database.Entities.ProfileEntity", "Profile")
-                        .WithMany("FinishUpGames")
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.Navigation("AvalonProfile");
 
                     b.Navigation("OfflineGame");
-
-                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("Avalon.Database.Entities.OfflineGameEntity", b =>
@@ -746,47 +859,61 @@ namespace Avalon.Migrations
 
             modelBuilder.Entity("Avalon.Database.Entities.Relations.OfflineGameMissionProfileEntity", b =>
                 {
+                    b.HasOne("Avalon.Database.Entities.AvalonProfileEntity", "AvalonProfile")
+                        .WithMany("OfflineGameMissionProfiles")
+                        .HasForeignKey("AvalonProfileId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Avalon.Database.Entities.Relations.OfflineGameMissionEntity", "OfflineGameMission")
                         .WithMany("OfflineGameMissionProfiles")
                         .HasForeignKey("OfflineGameMissionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Avalon.Database.Entities.ProfileEntity", "Profile")
-                        .WithMany("OfflineGameMissionProfiles")
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.Navigation("AvalonProfile");
 
                     b.Navigation("OfflineGameMission");
-
-                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("Avalon.Database.Entities.Relations.OfflineGameProfileRoleEntity", b =>
                 {
+                    b.HasOne("Avalon.Database.Entities.AvalonProfileEntity", "AvalonProfile")
+                        .WithMany("OfflineGameProfileRoles")
+                        .HasForeignKey("AvalonProfileId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Avalon.Database.Entities.AvalonRoleEntity", "AvalonRole")
+                        .WithMany("OfflineGameProfileRoles")
+                        .HasForeignKey("AvalonRoleId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Avalon.Database.Entities.OfflineGameEntity", "OfflineGame")
                         .WithMany("OfflineGameProfileRoles")
                         .HasForeignKey("OfflineGameId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Avalon.Database.Entities.ProfileEntity", "Profile")
-                        .WithMany("OfflineGameProfileRoles")
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.Navigation("AvalonProfile");
 
-                    b.HasOne("Avalon.Database.Entities.RoleEntity", "Role")
-                        .WithMany("OfflineGameProfileRoles")
-                        .HasForeignKey("Roled")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.Navigation("AvalonRole");
 
                     b.Navigation("OfflineGame");
+                });
 
-                    b.Navigation("Profile");
+            modelBuilder.Entity("Avalon.Database.Entities.AvalonProfileEntity", b =>
+                {
+                    b.Navigation("FinishUpGames");
 
-                    b.Navigation("Role");
+                    b.Navigation("OfflineGameMissionProfiles");
+
+                    b.Navigation("OfflineGameProfileRoles");
+                });
+
+            modelBuilder.Entity("Avalon.Database.Entities.AvalonRoleEntity", b =>
+                {
+                    b.Navigation("OfflineGameProfileRoles");
                 });
 
             modelBuilder.Entity("Avalon.Database.Entities.OfflineGameEntity", b =>
@@ -798,23 +925,9 @@ namespace Avalon.Migrations
                     b.Navigation("OfflineGameProfileRoles");
                 });
 
-            modelBuilder.Entity("Avalon.Database.Entities.ProfileEntity", b =>
-                {
-                    b.Navigation("FinishUpGames");
-
-                    b.Navigation("OfflineGameMissionProfiles");
-
-                    b.Navigation("OfflineGameProfileRoles");
-                });
-
             modelBuilder.Entity("Avalon.Database.Entities.Relations.OfflineGameMissionEntity", b =>
                 {
                     b.Navigation("OfflineGameMissionProfiles");
-                });
-
-            modelBuilder.Entity("Avalon.Database.Entities.RoleEntity", b =>
-                {
-                    b.Navigation("OfflineGameProfileRoles");
                 });
 
             modelBuilder.Entity("Avalon.Database.Entities.StageEntity", b =>

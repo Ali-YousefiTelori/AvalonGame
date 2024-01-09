@@ -11,22 +11,22 @@ namespace Avalon.Database.Contexts
         public AvalonContext(IEntityFrameworkCoreDatabaseBuilder builder) : base(builder) { }
 
         public DbSet<StageEntity> Stages { get; set; }
-        public DbSet<RoleEntity> Roles { get; set; }
-        public DbSet<ProfileEntity> Profiles { get; set; }
+        public DbSet<AvalonRoleEntity> AvalonRoles { get; set; }
+        public DbSet<AvalonProfileEntity> AvalonProfiles { get; set; }
         public DbSet<OfflineGameEntity> OfflineGames { get; set; }
         public DbSet<OfflineGameProfileRoleEntity> OfflineGameProfileRoles { get; set; }
         public DbSet<OfflineGameMissionProfileEntity> OfflineGameMissionProfiles { get; set; }
         public DbSet<OfflineGameMissionEntity> OfflineGameMissions { get; set; }
         public DbSet<FinishUpGameEntity> FinishUpGames { get; set; }
-        public DbSet<UserFeedbackEntity> UserFeedbacks { get; set; }
-        
+        public DbSet<AvalonUserFeedbackEntity> AvalonUserFeedbacks { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //new AuthenticationDatabaseBuilder().OnModelCreating(modelBuilder);
             base.AutoModelCreating(modelBuilder);
-
             modelBuilder.Entity<OfflineGameMissionProfileEntity>(e =>
             {
-                e.HasKey(x => new { x.OfflineGameMissionId, x.ProfileId });
+                e.HasKey(x => new { x.OfflineGameMissionId, x.AvalonProfileId });
             });
 
             modelBuilder.Entity<StageEntity>(x =>
@@ -56,7 +56,7 @@ namespace Avalon.Database.Contexts
                     Mission3PlayerCount = 4,
                     Mission4PlayerCount = 3,
                     Mission5PlayerCount = 4,
-                } , new StageEntity()
+                }, new StageEntity()
                 {
                     Id = 3,
                     Name = "7 Players",
@@ -181,126 +181,126 @@ namespace Avalon.Database.Contexts
                     Mission4PlayerCount = 5,
                     Mission5PlayerCount = 8,
                     DoNeedsTwoOfFailsAtMission4 = true
-                }); 
+                });
             });
-            
-            modelBuilder.Entity<RoleEntity>(x =>
+
+            modelBuilder.Entity<AvalonRoleEntity>(x =>
             {
-                x.HasData(new RoleEntity()
+                x.HasData(new AvalonRoleEntity()
                 {
                     Id = 1,
                     Name = "Merlin",
                     IsMinionOfMordred = false
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 2,
                     Name = "Percival",
                     IsMinionOfMordred = false
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 3,
                     Name = "Mordred",
                     IsMinionOfMordred = true
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 4,
                     Name = "Assassin",
                     IsMinionOfMordred = true
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 5,
                     Name = "Morgana",
                     IsMinionOfMordred = true
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 6,
                     Name = "Oberon",
                     IsMinionOfMordred = true
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 7,
                     Name = "Evil",
                     IsMinionOfMordred = true
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 8,
                     Name = "Evil",
                     IsMinionOfMordred = true
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 9,
                     Name = "Evil",
                     IsMinionOfMordred = true
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 10,
                     Name = "Evil",
                     IsMinionOfMordred = true
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 11,
                     Name = "Evil",
                     IsMinionOfMordred = true
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 12,
                     Name = "Evil",
                     IsMinionOfMordred = true
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 13,
                     Name = "People",
                     IsMinionOfMordred = false
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 14,
                     Name = "People",
                     IsMinionOfMordred = false
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 15,
                     Name = "People",
                     IsMinionOfMordred = false
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 16,
                     Name = "People",
                     IsMinionOfMordred = false
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 17,
                     Name = "People",
                     IsMinionOfMordred = false
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 18,
                     Name = "People",
                     IsMinionOfMordred = false
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 19,
                     Name = "People",
                     IsMinionOfMordred = false
                 },
-                new RoleEntity()
+                new AvalonRoleEntity()
                 {
                     Id = 20,
                     Name = "People",
