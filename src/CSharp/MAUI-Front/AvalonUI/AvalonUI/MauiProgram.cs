@@ -42,6 +42,10 @@ public static class MauiProgram
                 fonts.AddFont("fa-regular-400.ttf", "FontBrands");
                 fonts.AddFont("fa-solid-900.ttf", "FontSolid");
             });
+        LoginViewModel.OnGetToken = (token) =>
+        {
+            return Task.CompletedTask;
+        };
         builder.Services.AddSingleton(sp => ClientManager.AuthenticationClient);
         builder.Services.AddTransient<LoginViewModel, AvalonLoginViewModel>();
         builder.Services.AddTransient<RegisterViewModel, AvalonRegisterViewModel>();
