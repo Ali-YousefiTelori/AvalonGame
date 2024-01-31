@@ -5,9 +5,9 @@
     <RootNamespace>Avalon</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
+  
   <ItemGroup>
-    <PackageReference Include="EasyMicroservices.AuthenticationsMicroservice.Module" Version="0.0.0.1" />
+    <PackageReference Include="EasyMicroservices.Cores.AspEntityFrameworkCoreApi" Version="0.0.1.43" />
   </ItemGroup>
 
 </Project>
